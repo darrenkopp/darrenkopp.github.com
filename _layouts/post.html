@@ -25,8 +25,12 @@ comments: true
     {% endif %}
 </article>
 <nav class="pagination">
+    {% if page.previous %}
     <div class="prev"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; {{ page.previous.title }}</a></div>
+    {% endif %}
+    {% if page.next %}
     <div class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title }} &rarr;</a></div>
+    {% endif %}
 </nav>
 {% if page.comments %}
     <section class="comments row">
