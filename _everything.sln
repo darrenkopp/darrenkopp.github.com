@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{CE7B5E8F-8988-442F-ADC9-D4A29DF678D1}"
+	ProjectSection(SolutionItems) = preProject
+		_layouts\layout.html = _layouts\layout.html
+		_layouts\post.html = _layouts\post.html
+		css\style.css = css\style.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC2E-0846-438B-A593-704CB43297E7}"
+	ProjectSection(SolutionItems) = preProject
+		_posts\2013-03-06-its-ok-to-rewrite-applications-from-scratch-sometimes.html = _posts\2013-03-06-its-ok-to-rewrite-applications-from-scratch-sometimes.html
+		_posts\2013-03-07-delete-your-code.html = _posts\2013-03-07-delete-your-code.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
+	ProjectSection(SolutionItems) = preProject
+		_config.yml = _config.yml
+		CNAME = CNAME
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "syndication", "syndication", "{1A187E55-3B90-425D-84B4-172623DF585A}"
+	ProjectSection(SolutionItems) = preProject
+		atom.xml = atom.xml
+		rss.xml = rss.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{A019602D-E263-44E5-A6EE-BBA30E4D3891}"
+	ProjectSection(SolutionItems) = preProject
+		about.md = about.md
+		index.html = index.html
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

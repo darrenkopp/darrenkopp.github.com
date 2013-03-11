@@ -1,0 +1,34 @@
+---
+layout: nil
+---
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.name }}</title>
+    <link>{{ site.url }}</link>
+    <description>{{ site.description }}</description>
+    <language>en-us</language>
+    <copyright>Copyright {{ site.time | date: "%Y" }} {{ site.author }}</copyright>
+    <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+    <lastBuildDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>
+    <image>
+      <url>http://darrenkopp.com/img/favicon256.png</url>
+      <title>{{ site.name }}</title>
+      <link>{{ site.url }}</link>
+      <width>256</width>
+      <height>256</height>
+    </image>
+
+    {% for post in site.posts %}
+    <item>
+      <title>{{ post.title | xml_escape }}</title>
+      <link>{{ site.url }}{{ post.url }}</link>
+      <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
+      <author>{{ site.author }}</author>
+      <guid>{{ site.url }}{{ post.id }}</guid>
+      <description>{{ post.content | xml_escape }}</description>
+    </item>
+    {% endfor %}
+
+  </channel>
+</rss>

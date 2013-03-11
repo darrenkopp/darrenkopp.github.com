@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="Author" content="{{ site.author }}" />
+    <meta name="description" content="{{ site.description }}" />
+    <title>{{ site.name }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.rss_url }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" href="/img/favicon32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/img/favicon64.png" sizes="64x64" type="image/png">
+    <link rel="icon" href="/img/favicon128.png" sizes="128x128" type="image/png">
+    <link rel="icon" href="/img/favicon256.png" sizes="256x256" type="image/png">
+    <link href="/css/fonts.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-39031770-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body>
+    <header id="sidebar" class="span2">
+        <a href="/" class="thumbnail">
+            <figure class="logo">
+                <img src="{{ site.gravatar_url }}" alt="{{ site.author }}" />
+            </figure>
+        </a>
+        <h1>On Software</h1>
+        <h2>Darren Kopp</h2>
+        <h3 class="muted">Navigating through software, line by line</h3>
+        <nav>
+            <ul class="menu list-unstyled">
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+        <ul class="social list-unstyled">
+            <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
+            <li><a href="https://github.com/{{ site.github }}">GitHub</a></li>
+            <li><a href="{{ site.rss_url }}">rss</a></li>
+        </ul>
+    </header>
+    <section id="river" class="span5">
+        {{content}}
+    </section>
+</body>
+</html>

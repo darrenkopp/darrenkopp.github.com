@@ -1,0 +1,20 @@
+pretzel: 
+    engine: liquid
+pygments: true
+permalink: /posts/:year/:month/:day/:title.html
+author: Darren Kopp
+name: Darren Kopp - On Software
+url: http://darrenkopp.com
+description: Musings on software, technology, and life by Darren Kopp
+twitter: darrenkopp
+github: darrenkopp
+gravatar_url: http://gravatar.com/avatar/6bdef69e9f0f98bebcf8acc2a9ff25cd
+rss_url: http://feeds.darrenkopp.com/darrenkopp
+comments :
+  provider : disqus
+  disqus :
+    short_name : darrenkoppblog
+analytics :
+  provider : google
+  google : 
+      tracking_id : 'UA-39031770-1'

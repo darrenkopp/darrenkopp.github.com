@@ -1,0 +1,77 @@
+/*
+   colors:
+     redish orange: b94a48    
+*/
+body {
+    font-family: 'RobotoRegular', "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #333333;
+    font-size: 17px;
+    line-height: 27px;
+    background-color: #f9f9f9;
+}
+
+#sidebar .thumbnail {
+    display: inline-block
+}
+
+#sidebar .logo {
+    border-radius: 3px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.post {
+    padding-left: 40px;
+}
+
+.post > header:first-child > ul li {
+    font-size: 14px;
+}
+
+.post .jumbotron {
+    font-size: 21px;
+    line-height: 1.25;
+    font-family: 'RobotoLight',"Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+#river {
+    border-left: 1px solid #eee;
+}
+
+#sidebar {
+    padding-left: 3%;
+    padding-top: 40px;
+}
+
+    #sidebar > h1, h2, h3 {
+        margin: 0;
+        width: 75%;
+    }
+
+    #sidebar ul.social li {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #sidebar h1 {
+        font-size: 30px;
+        line-height: 30px;
+        font-weight: 900;
+        margin-top: 15px;
+    }
+
+    #sidebar h2 {
+        font-size: 13px;
+        line-height: 16px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    #sidebar h3 {
+        font-size: 16px;
+        line-height: 23px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }

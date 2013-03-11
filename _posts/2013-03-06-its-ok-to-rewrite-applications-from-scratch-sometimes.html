@@ -1,0 +1,75 @@
+---
+layout: post
+title: "It's OK to rewrite applications from scratch (sometimes)"
+date: 2013-03-07 04:02:40
+categories:
+- software
+tags: 
+- planning
+- rewrite
+- project-management
+---
+
+<p class="jumbotron">
+    You may have heard that rewriting an entire application is <a title="Things You Should Never Do, Part I" href="http://www.joelonsoftware.com/articles/fog0000000069.html" target="_blank">something you should never do</a>.
+    As usual, this is great advice 99% of the time.
+</p>
+<p>
+    Recently I was tasked with writing the new version of our payroll product and we
+    as a team decided to write the product from scratch for the following reasons:
+</p>
+<ul>
+    <li>We were upgrading from classic asp to asp.net,
+        so all of that code couldn't be shared anyway</li>
+    <li>There were serious performance problems with the existing system, so there likely
+        wouldn't be much use in keeping the database related code.</li>
+</ul>
+<p>
+    After completing the rewrite, I realized the main reason it was successful was because
+    the <strong>core domain knowledge</strong> about how things should work was still
+    there, shared between 3 separate employees. When I started, I didn't know that much
+    about how the product worked outside of what I knew from using it. I was given a
+    sheet with the desired features, and some mock-ups of what the user interface would
+    look like, and from there it was my job to figure the rest out.
+</p>
+
+<p>
+    I was able to ask the people who had written the prior versions (yes, more than one)
+    whenever I didn't know why something was supposed to be a certain way when it did
+    not make sense to me, or when I found the behavior of something to be ambiguous.
+    I found that <strong>it didn't matter how I did something as long as the way I was doing
+        it wasn't wrong</strong>. While that may sound stupidly obvious, acknowledging
+    this fact can free you to make very radical decisions that may not have seemed obvious
+    before.
+</p>
+
+<p>
+    Once you are no longer constrained by your preconceived ideas about how something
+    <em>should </em>be done, you are then free to solve the problems like performance
+    problems without sacrificing the features of the application or the integrity of
+    the code.
+</p>
+
+<p>
+    So, was the rewrite worth it? <strong>Absolutely</strong>. The most important part
+    of the system saw increased complexity due to new features while simultaneously
+    seeing a 100x increase in performance. The only reason this was possible was by
+    completely rewriting the program from scratch.
+</p>
+
+<p>
+    I should note, however, that rewriting an entire application is still incredibly
+    hard. It's a lot of work and it takes a long time. It took me about 9 months to
+    complete it and during that time I even rewrote the <em>new code</em> I had written
+    about 15 times as well as I iterated and improved as I learned. A full rewrite definitely
+    requires the right person or the right team to be successful.
+</p>
+
+<p>
+    Ultimately, I would say that it is OK (and perhaps advisable) to at least consider
+    rewriting an application when there are <em>significant</em> complications to modifying
+    the existing application, you still have enough of the core knowledge about the
+    existing application at your company, and you have the time to pull off a rewrite.
+    Even if you meet all the following criteria, a rewrite isn't always right, but it
+    is worth considering.
+</p>
