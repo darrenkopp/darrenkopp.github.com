@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{CE7B5E8F-8988-442F-ADC9-D4A29DF678D1}"
 	ProjectSection(SolutionItems) = preProject
+		css\bootstrap.css = css\bootstrap.css
 		_layouts\layout.html = _layouts\layout.html
 		_layouts\post.html = _layouts\post.html
 		css\style.css = css\style.css
@@ -28,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "syndication", "syndication"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{A019602D-E263-44E5-A6EE-BBA30E4D3891}"
 	ProjectSection(SolutionItems) = preProject
-		about.md = about.md
+		about.html = about.html
 		index.html = index.html
 	EndProjectSection
 EndProject
