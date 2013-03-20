@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "SQL Server Trick - Read and Write in one statement with OUTPUT"
-date: 2013-03-20 18:41:00
+title: "Read and write in one statement with OUTPUT"
+date: 2013-03-20 19:41:00
 categories:
 - software
 tags: 
@@ -15,8 +15,8 @@ tags:
 
 <p>
     Recently I was working on adding support for sending notifications to mobile devices and came across a cool feature in SQL Server that I didn't know about.
-I won't go into the details, but what I doing was basically a producer-consumer problem but distributed across multiple machines.
-When I started, I knew exactly what to do; when I finished, I had learned something new.
+    I won't go into the details, but what I doing was basically a producer-consumer problem but distributed across multiple machines.
+    When I started, I knew exactly what to do; when I finished, I had learned something new.
 </p>
 
 <h3>First Attempt</h3>
@@ -84,6 +84,9 @@ OUTPUT inserted.Id
 
 <p>
     Now that I know about this, I can think of a lot of other situations where it will be extremely helpful. This output clause isn't just limited to <code>UPDATE</code> statements either; it's supported on <code>INSERT</code> and <code>DELETE</code> as well.
+</p>
+<p>
+    If you aren't using SQL Server, there may be an equivalent of this technique supported by your database. The <code>RETURNING</code> clause is the most common variant and it's supported by <a href="http://www.postgresql.org/docs/9.2/static/sql-update.html">PostgreSQL</a> and <a href="http://docs.oracle.com/cd/B19306_01/appdev.102/b14261/returninginto_clause.htm">Oracle</a>.
 </p>
 
 <aside class="muted">
