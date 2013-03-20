@@ -58,7 +58,7 @@ body {
     padding-top: 40px;
 }
 
-    #sidebar > h1, h2, h3 {
+    #sidebar > h1, #sidebar > h2, #sidebar > h3 {
         margin: 0;
         width: 75%;
     }

@@ -27,28 +27,30 @@
     </script>
 </head>
 <body>
-    <header id="sidebar" class="span2">
-        <a href="/" class="thumbnail">
-            <figure class="logo">
-                <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" />
-            </figure>
-        </a>
-        <h1>On Software</h1>
-        <h2>Darren Kopp</h2>
-        <h3 class="muted">Navigating through software, line by line</h3>
-        <nav>
-            <ul class="menu list-unstyled">
-                <li><a href="/about">About</a></li>
+    <div class="container">
+        <header id="sidebar" class="span3">
+            <a href="/" class="thumbnail">
+                <figure class="logo">
+                    <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" />
+                </figure>
+            </a>
+            <h1>On Software</h1>
+            <h2>Darren Kopp</h2>
+            <h3 class="muted">Navigating through software, line by line</h3>
+            <nav>
+                <ul class="menu list-unstyled">
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+            <ul class="social list-unstyled">
+                <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
+                <li><a href="https://github.com/{{ site.github }}">GitHub</a></li>
+                <li><a href="{{ site.rss_url }}">rss</a></li>
             </ul>
-        </nav>
-        <ul class="social list-unstyled">
-            <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
-            <li><a href="https://github.com/{{ site.github }}">GitHub</a></li>
-            <li><a href="{{ site.rss_url }}">rss</a></li>
-        </ul>
-    </header>
-    <section id="river" class="span5">
-        {{content}}
-    </section>
+        </header>
+        <section id="river" class="span8">
+            {{content}}
+        </section>
+    </div>
 </body>
 </html>
