@@ -1,0 +1,93 @@
+---
+layout: post
+title: "SQL Server Trick - Read and Write in one statement with OUTPUT"
+date: 2013-03-20 18:41:00
+categories:
+- software
+tags: 
+- sql
+- optimization
+---
+<blockquote class="jumbotron">
+    <p>Some people will never learn anything, for this reason, because they understand everything too soon.</p>
+    <small class="pull-right"><cite>Alexander Pope</cite></small>
+</blockquote>
+
+<p>
+    Recently I was working on adding support for sending notifications to mobile devices and came across a cool feature in SQL Server that I didn't know about.
+I won't go into the details, but what I doing was basically a producer-consumer problem but distributed across multiple machines.
+When I started, I knew exactly what to do; when I finished, I had learned something new.
+</p>
+
+<h3>First Attempt</h3>
+<p>Starting out, I already knew exactly what I needed to do and how to do it. The SQL was very straight forward.</p>
+
+{% highlight sql %}
+UPDATE dbo.NotificationQueue
+SET IsActive = 0,
+    LockedUntilUtc = DATEADD(SECOND, 10, SYSUTCDATETIME()),
+    LockedBy = @MachineName
+WHERE Id IN (
+    SELECT Id
+    FROM dbo.NotificationQueue q
+    WHERE q.IsActive = 1
+    ORDER BY q.CreatedOnUtc 
+        OFFSET 0 ROWS 
+        FETCH FIRST @BatchSize ROWS ONLY
+);
+
+SELECT Id, TargetApplication, SystemType, IsDevelopment, AlertMessage, Payload, Token
+FROM dbo.NotificationQueue
+WHERE LockedBy = @MachineName;
+{% endhighlight %}
+
+<p>There are problems with this approach though.</p>
+
+<ul>
+    <li>It requires multiple operations (one to find the items to update, one to update, and one to select the items that are now locked)</li>
+    <li>You need multiple indexes (one for looking up the items that are active, one to look up who has locked the notification)</li>
+</ul>
+
+<h3>Refactoring</h3>
+
+<p>
+    I don't remember exactly how I ended up on the <a href="http://msdn.microsoft.com/en-us/library/ms177523.aspx">documentation for UPDATE statements</a> exactly, but I noticed something I haven't ever payed attention to before.
+Towards the bottom of the page was the section <a href="http://msdn.microsoft.com/en-us/library/ms177523.aspx#CaptureResults">"Capturing the Results of the UPDATE Statement"</a>.
+</p>
+
+<p>
+    How this works is very similar to how triggers work: you get fake tables called <code>inserted</code> and <code>deleted</code> which hold the values that are modified by the query.
+The <code>inserted</code> table holds the new values for the records. The <code>deleted</code> table holds the previous values for the records.
+</p>
+
+<p>
+    So, this allows us to remove our second query we had above that was just retrieving the information about our notification.
+I also ended up using another trick that I had run across previously which is that you can update using a <a href="http://msdn.microsoft.com/en-us/library/ms190766.aspx" target="_blank">Common Table Expression</a>.
+This doesn't change the efficiency of the query, I just find it easier to read. 
+</p>
+
+{% highlight sql %}
+WITH pending AS (
+    SELECT *
+    FROM dbo.NotificationQueue q
+    WHERE q.IsActive = 1
+    ORDER BY q.CreatedOnUtc OFFSET 0 ROWS FETCH FIRST @BatchSize ROWS ONLY
+)
+UPDATE pending
+SET IsActive = 0,
+    LockedUntilUtc = DATEADD(SECOND, 10, SYSUTCDATETIME()),
+    LockedBy = @MachineName
+OUTPUT inserted.Id
+    , inserted.TargetApplication, inserted.SystemType, inserted.IsDevelopment
+    , inserted.AlertMessage, inserted.Payload, inserted.Token;
+{% endhighlight %}
+
+<p>
+    Now that I know about this, I can think of a lot of other situations where it will be extremely helpful. This output clause isn't just limited to <code>UPDATE</code> statements either; it's supported on <code>INSERT</code> and <code>DELETE</code> as well.
+</p>
+
+<aside class="muted">
+    PS: You'll notice <code>SELECT *</code> in the query above, which we know isn't good for performance.
+    In this instance, however, it has no effect on performance because the <code>OUTPUT</code> clase is basically the effective select statement for the query, and thus the select statement inside the CTE doesn't really matter.
+    It does allow me to not have to write all the columns multiple times, however.
+</aside>
