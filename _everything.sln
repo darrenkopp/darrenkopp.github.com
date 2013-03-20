@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{CE
 		css\bootstrap.css = css\bootstrap.css
 		_layouts\layout.html = _layouts\layout.html
 		_layouts\post.html = _layouts\post.html
+		css\pygments.css = css\pygments.css
 		css\style.css = css\style.css
 	EndProjectSection
 EndProject
