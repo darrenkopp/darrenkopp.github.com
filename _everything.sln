@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "syndication", "syndication"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{A019602D-E263-44E5-A6EE-BBA30E4D3891}"
 	ProjectSection(SolutionItems) = preProject
-		about.html = about.html
+		about.md = about.md
 		index.html = index.html
 	EndProjectSection
 EndProject
