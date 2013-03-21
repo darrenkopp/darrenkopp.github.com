@@ -5,7 +5,11 @@
     <meta charset="utf-8" />
     <meta name="Author" content="{{ site.author }}" />
     <meta name="description" content="{{ site.description }}" />
+    {% if page.title %}
+    <title>{{ page.title }}</title>
+    {% else %}
     <title>{{ site.name }}</title>
+    {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.rss_url }}" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -41,7 +45,7 @@
             <h3 class="muted">Navigating through software, line by line</h3>
             <nav>
                 <ul class="menu list-unstyled">
-                    <li><a href="/about.html">About</a></li>
+                    <li><a href="/about">About</a></li>
                 </ul>
             </nav>
             <ul class="social list-unstyled">
