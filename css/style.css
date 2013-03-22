@@ -98,3 +98,11 @@ body {
 .comments {
     margin-top: 20px;
 }
+
+.ellipsis {
+	width: 250px;
+    max-width: 250px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
