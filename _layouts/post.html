@@ -24,12 +24,12 @@ comments: true
     </footer>
     {% endif %}
 </article>
-<nav class="pagination">
+<nav class="pagination row">
     {% if page.previous and page.previous.id != page.id %}
-    <div class="prev"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; {{ page.previous.title }}</a></div>
+    <div class="span4"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; <span class="prev-link">{{ page.previous.title }}</span></a></div>
     {% endif %}
     {% if page.next and page.next.id != page.id %}
-    <div class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title }} &rarr;</a></div>
+    <div class="span4 offset4"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="next-link">{{ page.next.title }}</span> &rarr;</a></div>
     {% endif %}
 </nav>
 {% if page.comments == true %}
