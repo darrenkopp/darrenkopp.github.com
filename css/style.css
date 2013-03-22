@@ -99,6 +99,14 @@ body {
     margin-top: 20px;
 }
 
+.post-pagination {
+    margin-top: 3em;
+}
+
+    .post-pagination a, .post-pagination a:hover {
+        text-decoration: none;
+    }
+
 .ellipsis {
 	width: 250px;
     max-width: 250px;
