@@ -95,13 +95,6 @@ body {
     font-size: 14px;
 }
 
-.next-link, .prev-link {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 300px;
-}
-
 .comments {
-    margin-top: 10px;
+    margin-top: 20px;
 }

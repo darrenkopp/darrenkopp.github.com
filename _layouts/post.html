@@ -25,12 +25,14 @@ comments: true
     {% endif %}
 </article>
 <nav class="pagination row">
+    <ul class="pager">
     {% if page.previous and page.previous.id != page.id %}
-    <div class="span5"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; <span class="prev-link">{{ page.previous.title }}</span></a></div>
+    <li class="previous"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; {{ page.previous.title }}</a></li>
     {% endif %}
     {% if page.next and page.next.id != page.id %}
-    <div class="span5 offset2"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="next-link">{{ page.next.title }}</span> &rarr;</a></div>
+    <li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}">{{ page.next.title }} &rarr;</a></li>
     {% endif %}
+    </ul>
 </nav>
 <hr />
 <section class="text-center">
