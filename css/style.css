@@ -95,11 +95,10 @@ body {
     font-size: 14px;
 }
 
-.pagination > .next-link, .pagination > .prev-link {
-    max-width: 300px;
+.next-link, .prev-link {
+    white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .comments {
