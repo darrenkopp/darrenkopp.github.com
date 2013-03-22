@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "syndication", "syndication"
 	ProjectSection(SolutionItems) = preProject
 		atom.xml = atom.xml
 		rss.xml = rss.xml
+		sitemap.xml = sitemap.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{A019602D-E263-44E5-A6EE-BBA30E4D3891}"
