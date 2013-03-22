@@ -26,10 +26,10 @@ comments: true
 </article>
 <nav class="pagination row">
     {% if page.previous and page.previous.id != page.id %}
-    <a class="span5" href="{{ page.previous.url }}" title="{{ page.previous.title }}"><div>&larr; <span class="ellipsis">{{ page.previous.title }}</span></div></a>
+    <a class="span5" href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; <span class="ellipsis">{{ page.previous.title }}</span></a>
     {% endif %}
     {% if page.next and page.next.id != page.id %}
-    <a class="span5 offset2" href="{{ page.next.url }}" title="{{ page.next.title }}"><div><span class="ellipsis">{{ page.next.title }}</span> &rarr;</div></a>
+    <a class="span5 offset2" href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="ellipsis">{{ page.next.title }}</span> &rarr;</a>
     {% endif %}
 </nav>
 <hr />
