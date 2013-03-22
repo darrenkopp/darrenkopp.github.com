@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E7
 	ProjectSection(SolutionItems) = preProject
 		_config.yml = _config.yml
 		CNAME = CNAME
+		robots.txt = robots.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "syndication", "syndication", "{1A187E55-3B90-425D-84B4-172623DF585A}"
