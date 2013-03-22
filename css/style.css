@@ -97,8 +97,9 @@ body {
 
 .next-link, .prev-link {
     white-space: nowrap;
-    overflow-x: hidden;
+    overflow-x: no-display;
     text-overflow: ellipsis;
+    max-width: 300px;
 }
 
 .comments {
