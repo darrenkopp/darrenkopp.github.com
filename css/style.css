@@ -97,7 +97,7 @@ body {
 
 .next-link, .prev-link {
     white-space: nowrap;
-    overflow-x: no-display;
+    overflow: hidden;
     text-overflow: ellipsis;
     max-width: 300px;
 }
