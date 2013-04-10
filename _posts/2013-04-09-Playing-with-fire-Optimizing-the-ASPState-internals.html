@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Playing with fire - Optimizing the ASPState internals"
-date: 2013-04-10 06:00:00-08:00
-published: false
+date: 2013-04-10 07:10:00-0700
+published: true
 categories:
 - software
 tags: 
@@ -10,12 +10,12 @@ tags:
 - aspstate
 ---
 <p class="alert">
-    <strong>Caution</strong>: what you are about to read is dangerous, borderline stupid (I should know, I did it).
-    If you do decide to go this route, make sure to <strong>do a lot of testing!</strong>
+    <strong>Caution</strong>: what you are about to read is risky. If you do decide to go this route, make sure to <strong>do a lot of testing!</strong>
 </p>
 <p>
     I recently tracked some intermittent pausing on our website to the ASPState database waiting on the <code>WRITELOG</code> command in the database.
-    This was puzzling because we don't really use session state very heavily and we <a href="http://www.fusionio.com/products/iodrive2-duo/">definitely weren't hitting I/O bottlenecks.</a>
+    This was puzzling because we don't really use session state very heavily and we 
+    <a href="http://www.fusionio.com/products/iodrive2-duo/">definitely weren't hitting I/O bottlenecks.</a>
     I opened up profiler and started looking into what was going on.
     Immediately I found some areas that could use improvement:
 </p>
@@ -24,17 +24,157 @@ tags:
     <li>Excessive updating of indexed columns</li>
     <li>Updating even when nothing was being changed</li>
 </ol>
-<h3>Too clever for our own good</h3>
+<h3>Sometimes clever hurts</h3>
 <p>
-    Without testing, <a href="/2013/03/07/its-ok-to-rewrite-applications-from-scratch-sometimes.html">I too would have thought that reading and updating in one operation</a> would provide the best performance,
-    but the query analyzer thinks differently. Sirens started sounding in my head when I looked at the execution plan for the 
+    Without testing, <a href="/2013/03/07/its-ok-to-rewrite-applications-from-scratch-sometimes.html">I too would have thought that reading and updating in one operation</a> 
+    would provide the best performance, but the query analyzer thinks differently. Sirens started sounding in my head when I looked at the execution plan for the 
     <code>TempGetStateItem3</code> and <code>TempGetStateItemExclusive3</code> procedures and saw an eager-spool happening for
     what should be a simple index seek operation. According to the documentation, an eager-spool will write all of the input data to a temporary table.
     While this should only be one row, writing the data to a temporary table is unnecessary and also causes additional I/O to the tempdb.
 </p>
 <p>
-    Documentation is light on why the query analyzer would choose to do an eager spool, but I would guess that it is due to the fact
-    that the update is storing the values in variables, updating the values, and using the values to determine what other values should be
-    <strong>all within the same statement</strong>. For everything to work right, order is very important, which is why I'm guessing SQL Server
-    is choosing to get all the input data into a table before going through and doing the updates, erring on the side of caution.
+    <a href="http://msdn.microsoft.com/en-us/library/ms190435.aspx">Documentation is light</a> on why the query analyzer would choose to do an eager spool, 
+    but the analyzer is picking it due to the fact that the update is storing the values in variables, updating the values, 
+    and using the values to determine what other values should be <strong>all within the same statement</strong>. 
+    For everything to work right, order is very important, which is why SQL Server is choosing to get all the input data into a table before going through and doing the updates 
+    <a href="https://www.simple-talk.com/sql/learn-sql-server/operator-of-the-week---spools,-eager-spool/">to avoid the halloween problem.</a>
+</p>
+<p>
+    The next thing I noticed is that in the <code>TempGetStateItemExclusive3</code> you see a side effect of using the <code>UPDATE</code> statement as a <code>SELECT</code>
+    statement: copious amounts of <code>CASE</code> statements that conditionally modify the data only when we are actually locking the session or not. Almost every field follows
+    the logic <em>if locked then set to this value, otherwise leave the original value.</em> While clever and works, this has some unfortunate side effects:
+</p>
+<ol>
+    <li>The <code>Expires</code> column is always updated, which is indexed</li>
+    <li>Even though we aren't changing values, we are still writing the values (I think, feel free to correct me if I'm wrong)</li>
+</ol>
+<h3>Let's break things</h3>
+<p class="alert alert-info">
+    I've tried to make the procedures work as close to the originals as possible, though there are places
+    where I deviate for performance reasons where I find the trade-off acceptable.
+</p>
+<p>
+    Let's start off with <code>TempResetTimeout</code> procedure since it's the simplest and safest to modify (it also happens to be executed the most often).
+    All we need to do is add a <code>WHERE</code> clause on the update statement that prevents the expiration being updated as frequently.
+</p>
+{% highlight sql %}
+ALTER PROCEDURE [dbo].[TempResetTimeout]
+    @id tSessionId
+AS
+    UPDATE [ASPState].dbo.ASPStateTempSessions
+    SET Expires = DATEADD(n, Timeout, GETUTCDATE())
+    WHERE SessionId = @id AND DATEDIFF(minute, @now, Expires) < (Timeout - 1);
+{% endhighlight %}
+<p class="alert alert-info">
+    Notice the database name in the update statement. If you are using a custom state database, it will be different.
+</p>
+<p>
+    Now, we'll only update the index and write the updated values at most once per minute. The risk here is that someone may have their session timeout potentially
+    one minute earlier than expected, and I am completely OK with this trade-off. You can tweak the interval, 1 minute is just a safe default. The major benefits here
+    are both less index updating and less writing (this procedure is fired at the end of every request using session I believe). 
+</p>
+<p>
+    Next we have the procedures that update the session state data: <code>TempUpdateStateItemLong</code>, <code>TempUpdateStateItemLongNullShort</code>, 
+    <code>TempUpdateStateItemShort</code>, and <code>TempUpdateStateItemShortNullLong</code>. The most we can do here is avoid unnecessary index updates on the 
+    <code>Expires</code> column. Here, we just need to conditionally update the <code>Expires</code> column.
+</p>
+{% highlight sql %}
+SET Expires = IIF(
+    DATEDIFF(minute, GETUTCDATE(), Expires) < (@timeout - 1), 
+    DATEADD(minute,@timeout,GETUTCDATE()), 
+    Expires
+)
+{% endhighlight %}
+<p>
+    Finally, we get to the expensive procedures: <code>TempGetStateItem3</code> and <code>TempGetStateItemExclusive3</code>. This procedures are almost identical, the
+    primary difference being that one locks the session while the other just reads the state (i.e. when the handler uses read-only session state). There's a lot
+    going on here, so I'll just post the code and then we'll go through it section by section.
+</p>
+{% highlight sql %}
+ALTER PROCEDURE [dbo].[TempGetStateItemExclusive3]
+    @id         tSessionId,
+    @itemShort  tSessionItemShort OUTPUT,
+    @locked     bit OUTPUT,
+    @lockAge    int OUTPUT,
+    @lockCookie int OUTPUT,
+    @actionFlags int OUTPUT
+AS
+
+DECLARE @ptr AS tTextPtr
+    , @length AS int
+    , @now AS datetime = GETUTCDATE()
+    , @nowLocal AS datetime = GETDATE();
+
+SELECT @locked = Locked
+    , @lockAge = IIF(Locked = 0, 0, DATEDIFF(second,LockDate,@now))
+    , @lockCookie = IIF(Locked = 0, LockCookie + 1, LockCookie)
+    , @actionFlags = Flags
+    , @itemShort = IIF(Locked = 0, SessionItemShort, NULL)
+    , @length = IIF(Locked = 0, DATALENGTH(SessionItemLong), NULL)
+    , @ptr = IIF(Locked = 0, TEXTPTR(SessionItemLong), NULL)
+FROM [ASPState].dbo.ASPStateTempSessions WITH(ROWLOCK,UPDLOCK)
+WHERE SessionId = @id;
+
+-- initialization
+IF ((@actionFlags & 1) <> 0)
+BEGIN
+    UPDATE [ASPState].dbo.ASPStateTempSessions
+    SET Flags = Flags & ~1
+    WHERE SessionId = @id;
+
+    -- signal to initialize
+    SET @actionFlags = 1;
+END
+
+-- lock and read
+IF (@locked = 0)
+BEGIN
+    UPDATE [ASPState].dbo.ASPStateTempSessions
+        SET Expires = IIF(
+            DATEDIFF(minute,@now,Expires) < ([Timeout] - 1), 
+            DATEADD(minute,[Timeout],@now), 
+            Expires
+        ),
+        Locked = 1,
+        LockDate = @now,
+        LockDateLocal = @nowLocal,
+        LockCookie = @lockCookie
+    WHERE SessionId = @id;
+
+    IF (@length IS NOT NULL)
+    BEGIN
+        READTEXT [ASPState].dbo.ASPStateTempSessions.SessionItemLong @ptr 0 @length;
+    END
+END
+{% endhighlight %}
+<p class="alert">
+    The way the original code worked, your session would be extended if the session could be locked as it attempts to lock the session repeatedly until it
+    actually acquires the lock. This is a breaking change from the original, but if you are using session on pages that take a long time, I would suggest
+    looking into getting rid of session usage on those pages.
+</p>
+<p>
+    To start with, we grab our session values in the select statement. Before, all of this was done in the update statement, and thus caused the eager-spool problem.
+    The <abbr title="Inline IF">IIF</abbr> statements make it so that we only grab the values if the session is unlocked, heck the "exclusive" aspect of the procedure.
+    Using a <code>SELECT</code> statement instead of an <code>UPDATE</code> statement has the drawback of possibly seeing the session is unlocked and someone locking
+    it before we can, which means that we need to hold a lock on the record in case we end up locking the session, and this is accomplished with the <code>WITH(UPDLOCK)</code>
+    statement.
+</p>
+<p>
+    Next, we get to some initialization stuff that it does. Basically, if the Flags value is 1, set it to 0 and return 1 in the <code>@actionFlags</code> parameter.
+    It's still doing the bitwise operations like before, but I don't think the values are ever different than 0 or 1.
+</p>
+<p>
+    The last part is straightforward. If we weren't locked, lock the session and read out the value in the <code>SessionItemLong</code> if there was one.
+    A couple of things I want to point out: we are conditionally updating the value of the <code>Expires</code> column as before, and we are updating the 
+    <code>LockCookie</code> column with the <code>@lockCookie</code> parameter value, which has an incremented value from the original <code>SELECT</code> statement.
+</p>
+<h3>Wrapping up</h3>
+<p>
+    So how much does this all help? Well, with a simple benchmark using 8 active sessions, running 4 concurrent requests per session I saw ~15% total throughput.
+    The session was being updated everytime, so throughput should increase even more with normal usage scenarios.
+</p>
+<p>
+    Feel free to tweak the changes where you see fit, you should have a decent understanding of the overall flow and requirements now. You can 
+    <a href="https://gist.github.com/darrenkopp/5352163">find all the scripts necessary on this gist on GitHub</a>. 
+    The only other suggestion I have is that you make sure your session state database's recovery model is set to simple.
 </p>
