@@ -1,0 +1,40 @@
+---
+layout: post
+title: "Playing with fire - Optimizing the ASPState internals"
+date: 2013-04-10 06:00:00-08:00
+published: false
+categories:
+- software
+tags: 
+- optimization
+- aspstate
+---
+<p class="alert">
+    <strong>Caution</strong>: what you are about to read is dangerous, borderline stupid (I should know, I did it).
+    If you do decide to go this route, make sure to <strong>do a lot of testing!</strong>
+</p>
+<p>
+    I recently tracked some intermittent pausing on our website to the ASPState database waiting on the <code>WRITELOG</code> command in the database.
+    This was puzzling because we don't really use session state very heavily and we <a href="http://www.fusionio.com/products/iodrive2-duo/">definitely weren't hitting I/O bottlenecks.</a>
+    I opened up profiler and started looking into what was going on.
+    Immediately I found some areas that could use improvement:
+</p>
+<ol>
+    <li>TempGetStateItemExclusive3 had an eager-spool operator in it's execution plan.</li>
+    <li>Excessive updating of indexed columns</li>
+    <li>Updating even when nothing was being changed</li>
+</ol>
+<h3>Too clever for our own good</h3>
+<p>
+    Without testing, <a href="/2013/03/07/its-ok-to-rewrite-applications-from-scratch-sometimes.html">I too would have thought that reading and updating in one operation</a> would provide the best performance,
+    but the query analyzer thinks differently. Sirens started sounding in my head when I looked at the execution plan for the 
+    <code>TempGetStateItem3</code> and <code>TempGetStateItemExclusive3</code> procedures and saw an eager-spool happening for
+    what should be a simple index seek operation. According to the documentation, an eager-spool will write all of the input data to a temporary table.
+    While this should only be one row, writing the data to a temporary table is unnecessary and also causes additional I/O to the tempdb.
+</p>
+<p>
+    Documentation is light on why the query analyzer would choose to do an eager spool, but I would guess that it is due to the fact
+    that the update is storing the values in variables, updating the values, and using the values to determine what other values should be
+    <strong>all within the same statement</strong>. For everything to work right, order is very important, which is why I'm guessing SQL Server
+    is choosing to get all the input data into a table before going through and doing the updates, erring on the side of caution.
+</p>
