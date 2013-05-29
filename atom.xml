@@ -10,7 +10,7 @@ layout: nil
   <id>{{ site.url }}</id>
   <author>
     <name>{{ site.author }}</name>
-    <email>darrenkopp+blog@gmail.com</email>
+    <email>{{ site.email }}</email>
   </author>
 
   {% for post in site.posts %}
