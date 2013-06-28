@@ -1,0 +1,40 @@
+---
+layout: post
+title: Introducing murmurhash-net
+date: 2013-06-27 20:30:00-0600
+categories:
+- opensource
+tags:
+- projects
+---
+<h2>Hello murmurhash-net</h2>
+<p>
+    I just completed my implementation of the <a href="https://code.google.com/p/smhasher/wiki/MurmurHash3">MurmurHash 3</a> algorithm to .NET and <a href="https://github.com/darrenkopp/murmurhash-net/">you can find it on GitHub</a>. 
+    MurmurHash is a <strong>non-crpytographic hash</strong> that has good speed and distribution characteristics.
+</p>
+<h3>When to use MurmurHash</h3>
+<p>
+    Now, I need to stress again that MurmurHash is <strong>not a cryptographic hash algorithm.</strong>
+    You should not use MurmurHash someplace where collisions can cause a denial of service scenario or where you are trying to keep 
+    the hashed value a secret. However, there are likely many places you could leverage a hash algorithm where neither of those apply.
+</p>
+<p>
+    So, why use MurmurHash instead of SHA1 or MD5 or something similar? Well, primarily because it's <strong>fast</strong>.
+    Realistically you should see MurmurHash being between 4x and 10x faster than SHA1 or MD5.
+    While you may not be hashing millions of items in a batch, that was actually the situation we found ourselves in.
+</p>
+<p>
+    MurmurHash comes in two variants: 32-bit and 128-bit. Depending on what you are doing, another reason to use MurmurHash
+    could be the fact that it's smaller than most other comparable algorithms. Being the same size as MD5, you should consider
+    using MurmurHash anywhere you might consider using MD5.
+</p>
+<h3>Other thoughts</h3>
+<p>
+    I haven't decided if it's a clever idea or a stupid idea, but since the larger MurmurHash variant returns a 128-bit value,
+    you can easily create a Guid from it. It is a bit more convenient to work with a Guid rather than an array of bytes so I actually
+    think it could be a good idea. On the other hand, people expect Guid's to be unique so it could be very surprising when two
+    different items hash to the same value.
+</p>
+<p>
+    So if you have need for a fast hash algorithm that doesn't need to be secure, <a href="https://github.com/darrenkopp/murmurhash-net/">give MurmurHash a try</a>.
+</p>
