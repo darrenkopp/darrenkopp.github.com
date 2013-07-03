@@ -1,0 +1,331 @@
+---
+layout: post
+title: Getting Autofac, NServiceBus, ASP.NET MVC and Web API to play together
+date: 2013-07-02 22:36:00-0600
+categories:
+- coding
+tags:
+- struct
+- value-types
+---
+<p class="lead">
+    Sometimes things that work seamlessly by themselves have trouble working with each other.
+    Autofac integrates seamlessly with ASP.NET MVC and Web API.
+    NServiceBus has support for Autofac as one of it's IContainer implementations.
+    What could go wrong?
+</p>
+<p>
+    A subtle problem arises when you start trying to do the "unit of work" approach to managing things like
+    Entity Frameworks DbContext. We want a single DbContext instance for each web request and for it to be
+    disposed at the end of each request so that we don't leak any resources.
+    Autofac has great support for this through their ASP.NET integration so that certain components
+    are scoped to have a single instance per request. This even works with ASP.NET Web API even. 
+</p>
+<p>
+    NServiceBus... has a problem with this though. Since Autofac's integration starts a new lifetime scope 
+    with a specific key, when NServiceBus receives a message and tries to get a handler from Autofac, it is unable
+    to fulfill the request because we are not in a web request.
+</p>
+<h3>The fix</h3>
+<p>
+    So, how can we get everything to work together? Simple: throw out all the existing functionality and start from scratch.
+    Sounds terrible but it isn't as hard as it sounds. Now, I should mention that I got the idea from this a few months ago
+    while looking at the source code for the Orchard project, so credit should go to them for this brilliant implementation.
+</p>
+<h4>The infrastructure</h4>
+<p>
+    There are three core interfaces we'll use to accomplish this: <code>IWorkContext</code>, <code>IWorkContextScope</code>, and <code>IWorkContextAccessor</code>.
+    <code>IWorkContext</code> isn't necessary, but it is a somewhat nice abstraction between us and Autofac.
+    <code>IWorkContextScope</code> is what tracks the <code>ILifetimeScope</code> for the request.
+    <code>IWorkContextAccessor</code> is a component that can be injected into others that allow them to find the current work context or start
+    a new scope. Below is the definition for <code>IWorkContextAccessor</code> and <code>IWorkContextScope</code>, and I'll put the code for the implementation at the end of this post.
+</p>
+{% highlight csharp %}
+public interface IWorkContextAccessor
+{
+    IWorkContext GetContext();
+    IWorkContextScope CreateScope();
+}
+
+public interface IWorkContextScope : IDisposable
+{
+    IWorkContext Context { get; }
+}
+{% endhighlight %}
+<h4>NServiceBus</h4>
+<p>
+    Now that we have our infrastructure in place, we can hook into NServiceBus via the <code>IMessageModule</code> interface.
+    We'll start a new scope in the <code>HandleBeginMessage</code> method and dispose of it in the <code>HandleEndMessage</code> method.
+    Now, since there can be multiple threads handling messages, but there is only one <code>IMessageModule</code> instance per type, we'll
+    need to store a separate instance of our current scope for each thread. Below is an implementation that does this.
+</p>
+{% highlight csharp %}
+public class WorkContextModule : IMessageModule, IDisposable
+{
+    readonly ThreadLocal<IWorkContextScope> CurrentScope = new ThreadLocal<IWorkContextScope>(false);
+    public IWorkContextAccessor Accessor { get; set; }
+
+    public void HandleBeginMessage()
+    {
+        CurrentScope.Value = Accessor.CreateScope();
+    }
+
+    public void HandleEndMessage()
+    {
+        var scope = CurrentScope.Value;
+        if (scope != null)
+        {
+            try
+            {
+                scope.Dispose();
+            }
+            finally
+            {
+                CurrentScope.Value = null;
+            }
+        }
+    }
+
+    public void HandleError()
+    {
+    }
+
+    public void Dispose()
+    {
+        CurrentScope.Dispose();
+    }
+}
+{% endhighlight %}
+<h4>Autofac</h4>
+<p>
+    There's only a couple of issues that we need to tackle here. Unfortunately, ASP.NET MVC and Web API use different service locator
+    providers, so we have to make our implementation work with both. On the plus side, we can leverage 50% of the work Autofac has already
+    done since we can just override the functionality on the MVC side. The Web API side we aren't so lucky.
+</p>
+<h5>MVC</h5>
+<p>
+    So for MVC we can just inherit from <code>RequestLifetimeScopeProvider</code> and provide the container to Autofac.
+    From there, Autofac takes care of disposing the lifetime scope at the end of an HTTP request for us.
+</p>
+{% highlight csharp %}
+class WorkContextLifetimeScopeProvider : RequestLifetimeScopeProvider
+{
+    readonly IWorkContextAccessor Accessor;
+    public WorkContextLifetimeScopeProvider(ILifetimeScope container)
+        : base(container)
+    {
+        Accessor = container.Resolve<IWorkContextAccessor>();
+    }
+
+    protected override ILifetimeScope GetLifetimeScopeCore(Action<ContainerBuilder> configurationAction)
+    {
+        return Accessor.CreateScope().Resolve<ILifetimeScope>();
+    }
+}
+{% endhighlight %}
+<h5>Web API</h5>
+<p>
+    There wasn't a simple way to extend the Autofac Web API integration, so I had to just copy the existing implemenation from the source.
+    There's two components we need to implement here: <code>IDependencyResolver</code> and <code>IDependencyScope</code>.
+    These are basically analogous to our <code>IWorkContext</code> and <code>IWorkContextScope</code>. I'll put implmentations at the end.
+</p>
+<h4>Tying it all together</h4>
+<p>
+    The only thing left to do is wire up Autofac to make this all work. For the most part, you likely won't have many components
+    that need to be scoped to the work context, but we want to make this as smooth as Autofac's ASP.NET integration.
+</p>
+{% highlight csharp %}
+public class InfrastructureModule : Module
+{
+    public const string CONTEXT_TAG = "WorkRequestScope";
+    protected override void Load(ContainerBuilder builder)
+    {
+        builder.Register(c => new DefaultWorkContext(c.Resolve<IComponentContext>()))
+            .As<IWorkContext>()
+            .InstancePerMatchingLifetimeScope(CONTEXT_TAG);
+
+        builder.Register(c => new DefaultWorkContextAccessor(CONTEXT_TAG, c.Resolve<ILifetimeScope>()))
+            .As<IWorkContextAccessor>()
+            .SingleInstance();
+    }
+}
+
+public static class InfrastructureRegistrationExtensions
+{
+    public static IRegistrationBuilder<TLimit, TActivatorData, TStyle>
+        InstancePerWorkContext<TLimit, TActivatorData, TStyle>(
+            this IRegistrationBuilder<TLimit, TActivatorData, TStyle> registration)
+    {
+        if (registration == null) throw new ArgumentNullException("registration");
+        return registration.InstancePerMatchingLifetimeScope(InfrastructureModule.CONTEXT_TAG);
+    }
+}
+{% endhighlight %}
+<p>
+    Now, anywhere where we need to register something for the unit of work like the DbContext, we would call
+    <code>builder.Register(c => ...).InstancePerWorkContext();</code>
+</p>
+<h3>Mission Accomplished</h3>
+<p>
+    While you may not be using all of the same components together as I am, you may find yourself needing to use the same
+    infrastructure outside of a http request and finding yourself stuck. Hopefully this will help you get through it.
+</p>
+<h5>IWorkContext</h5>
+{% highlight csharp %}
+public interface IWorkContext
+{
+    T Resolve<T>();
+    bool TryResolve<T>(out T service);
+    object Resolve(Type type);
+}
+{% endhighlight %}
+<h5>DefaultWorkContext</h5>
+{% highlight csharp %}
+class DefaultWorkContext : IWorkContext
+{
+    private readonly IComponentContext Context;
+    public DefaultWorkContext(IComponentContext context)
+    {
+        Context = context;
+    }
+
+    public T Resolve<T>()
+    {
+        return Context.Resolve<T>();
+    }
+
+    public bool TryResolve<T>(out T service)
+    {
+        return Context.TryResolve(out service);
+    }
+
+    public object Resolve(Type type)
+    {
+        return Context.Resolve(type);
+    }
+}
+{% endhighlight %}
+<h5>DefaultWorkContext</h5>
+{% highlight csharp %}
+class DefaultWorkContextAccessor : IWorkContextAccessor, IDisposable
+{
+    static readonly object CONTEXT_KEY = new object();
+    private readonly ILifetimeScope Lifetime;
+    readonly ThreadLocal<IWorkContext> ThreadContext = new ThreadLocal<IWorkContext>();
+    readonly object Tag;
+    public DefaultWorkContextAccessor(object tag, ILifetimeScope lifetime, IHttpContextAccessor httpAccessor)
+    {
+        Tag = tag;
+        HttpAccessor = httpAccessor;
+        Lifetime = lifetime;
+    }
+
+    public IWorkContext GetContext()
+    {
+        var httpContext = HttpAccessor.Current();
+        if (httpContext != null)
+            return ResolveHttpContext(httpContext);
+
+        return ThreadContext.Value;
+    }
+
+    private IWorkContext ResolveHttpContext(HttpContextBase httpContext)
+    {
+        IWorkContext context = httpContext.Items[CONTEXT_KEY] as IWorkContext;
+        if (context != null)
+            return context;
+
+        // find autofac managed lifetime
+        ILifetimeScope lifetime = httpContext.Items[typeof(ILifetimeScope)] as ILifetimeScope;
+        if (autofacManagedLifetime != null)
+        {
+            context = new DefaultWorkContext(lifetime);
+            httpContext.Items[CONTEXT_KEY] = context;
+            return context;
+        }
+
+        return null;
+    }
+
+    public IWorkContextScope CreateScope()
+    {
+        var workLifetime = Lifetime.BeginLifetimeScope(Tag);
+        try
+        {
+            var httpContext = HttpContext.Current;
+            if (httpContext != null)
+                return new HttpWorkContextScope(workLifetime, new HttpContextWrapper(httpContext));
+
+            return new ThreadLocalContextScope(workLifetime, ThreadContext);
+        }
+        catch
+        {
+            // if there is a problem, kill lifetime then rethrow
+            workLifetime.Dispose();
+            throw;
+        }
+    }
+
+    public void Dispose()
+    {
+        ThreadContext.Dispose();
+    }
+
+    abstract class AbstractScope : IWorkContextScope
+    {
+        bool disposed = false;
+        readonly IWorkContext WorkContext;
+        readonly ILifetimeScope Scope;
+        public AbstractScope(ILifetimeScope scope)
+        {
+            Scope = scope;
+            WorkContext = scope.Resolve<IWorkContext>();
+        }
+
+        public IWorkContext Context { get { return WorkContext; } }
+
+        public void Dispose()
+        {
+            if (disposed) return;
+
+            disposed = true;
+            using (Scope)
+                OnDispose();
+        }
+
+        protected virtual void OnDispose()
+        {
+        }
+    }
+
+    class HttpWorkContextScope : AbstractScope
+    {
+        readonly HttpContextBase HttpContext;
+        public HttpWorkContextScope(ILifetimeScope lifetime, HttpContextBase httpContext)
+            : base(lifetime)
+        {
+            HttpContext = httpContext;
+            HttpContext.Items[CONTEXT_KEY] = Context;
+            lifetime.CurrentScopeEnding += delegate
+            {
+                HttpContext.Items.Remove(CONTEXT_KEY);
+            };
+        }
+    }
+
+    class ThreadLocalContextScope : AbstractScope
+    {
+        private readonly ThreadLocal<IWorkContext> ContextStorage;
+        public ThreadLocalContextScope(ILifetimeScope scope, ThreadLocal<IWorkContext> contextStorage) : base(scope)
+        {
+            ContextStorage = contextStorage;
+            ContextStorage.Value = Context;
+        }
+
+        protected override void OnDispose()
+        {
+            ContextStorage.Value = null;
+        }
+    }
+}
+{% endhighlight %}
