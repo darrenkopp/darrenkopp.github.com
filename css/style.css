@@ -96,10 +96,16 @@ body {
 }
 
 .highlight pre {
-  overflow-x: auto;
+  overflow: auto;
   word-wrap: normal;
   white-space: pre;
+  max-height: 300px;
 }
+
+    .highlight pre code {
+        white-space: pre;
+        word-wrap: normal;
+    }
 
 .comments {
     margin-top: 20px;
