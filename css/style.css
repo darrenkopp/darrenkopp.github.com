@@ -95,6 +95,12 @@ body {
     font-size: 14px;
 }
 
+.highlight pre {
+  overflow-x: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+
 .comments {
     margin-top: 20px;
 }
