@@ -213,18 +213,17 @@ class DefaultWorkContextAccessor : IWorkContextAccessor, IDisposable
     private readonly ILifetimeScope Lifetime;
     readonly ThreadLocal<IWorkContext> ThreadContext = new ThreadLocal<IWorkContext>();
     readonly object Tag;
-    public DefaultWorkContextAccessor(object tag, ILifetimeScope lifetime, IHttpContextAccessor httpAccessor)
+    public DefaultWorkContextAccessor(object tag, ILifetimeScope lifetime)
     {
         Tag = tag;
-        HttpAccessor = httpAccessor;
         Lifetime = lifetime;
     }
 
     public IWorkContext GetContext()
     {
-        var httpContext = HttpAccessor.Current();
+        var httpContext = HttpContext.Current;
         if (httpContext != null)
-            return ResolveHttpContext(httpContext);
+            return ResolveHttpContext(new HttpContextWrapper(httpContext));
 
         return ThreadContext.Value;
     }
@@ -325,6 +324,122 @@ class DefaultWorkContextAccessor : IWorkContextAccessor, IDisposable
         protected override void OnDispose()
         {
             ContextStorage.Value = null;
+        }
+    }
+}
+{% endhighlight %}
+
+<h5>IDependencyResolver and IDependencyScope (Web API)</h5>
+{% highlight csharp %}
+class WorkContextApiDependencyResolver : IDependencyResolver
+{
+    private bool _disposed;
+    readonly ILifetimeScope _container;
+    readonly IWorkContextAccessor ContextAccessor;
+
+    public WorkContextApiDependencyResolver(ILifetimeScope container)
+    {
+        if (container == null) throw new ArgumentNullException("container");
+        _container = container;
+        ContextAccessor = container.Resolve<IWorkContextAccessor>();
+    }
+
+    public ILifetimeScope Container { get { return _container; } }
+
+    public object GetService(Type serviceType)
+    {
+        return Container.ResolveOptional(serviceType);
+    }
+
+    public IEnumerable<object> GetServices(Type serviceType)
+    {
+        if (!Container.IsRegistered(serviceType))
+            return Enumerable.Empty<object>();
+
+        var enumerableServiceType = typeof(IEnumerable<>).MakeGenericType(serviceType);
+        var instance = Container.Resolve(enumerableServiceType);
+        return (IEnumerable<object>)instance;
+    }
+
+    public IDependencyScope BeginScope()
+    {
+        var scope = ContextAccessor.CreateScope();
+        return new WorkContextApiDependencyScope(scope);
+    }
+
+    public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!this._disposed)
+        {
+            if (disposing)
+            {
+                if (_container != null)
+                    _container.Dispose();
+            }
+            this._disposed = true;
+        }
+    }
+}
+
+class WorkContextApiDependencyScope : IDependencyScope
+{
+    private bool _disposed;
+
+    readonly ILifetimeScope _lifetimeScope;
+    private readonly IWorkContextScope ContextScope;
+
+    public WorkContextApiDependencyScope(IWorkContextScope contextScope)
+    {
+        if (contextScope == null) throw new ArgumentNullException("contextScope");
+
+        ContextScope = contextScope;
+        _lifetimeScope = contextScope.Resolve<ILifetimeScope>();
+    }
+
+    ~WorkContextApiDependencyScope()
+    {
+        Dispose(false);
+    }
+
+    public ILifetimeScope LifetimeScope { get { return _lifetimeScope; } }
+
+    public object GetService(Type serviceType)
+    {
+        return _lifetimeScope.ResolveOptional(serviceType);
+    }
+
+    public IEnumerable<object> GetServices(Type serviceType)
+    {
+        if (!_lifetimeScope.IsRegistered(serviceType))
+            return Enumerable.Empty<object>();
+
+        var enumerableServiceType = typeof(IEnumerable<>).MakeGenericType(serviceType);
+        var instance = _lifetimeScope.Resolve(enumerableServiceType);
+        return (IEnumerable<object>)instance;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                if (ContextScope != null)
+                    ContextScope.Dispose();
+            }
+            _disposed = true;
         }
     }
 }
