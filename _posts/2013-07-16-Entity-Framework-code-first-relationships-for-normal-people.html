@@ -1,0 +1,106 @@
+---
+layout: post
+title: Entity Framework code first relationships for normal people
+date: 2013-07-16 16:36:00 -0600
+published: false
+categories: coding
+tags: entityframework
+---
+<p class="jumbotron">I don't speak entity framework's language fluently, and parts of it seem very alien to me still, 
+    so I decided to dig in and translate it to something most people, myself included, can understand.
+</p>
+<blockquote>
+    A relationship from the 'User_Accounts' AssociationSet is in the 'Deleted' state. 
+    Given multiplicity constraints, a corresponding 'User_Accounts_Target' must also in the 'Deleted' state.
+    <small>An exception message from <cite title="ADO.NET team at Microsoft">Entity Framework</cite></small>
+</blockquote>
+<p>
+    Although I get the relative problem that is being explained in that exception message, I had not idea what the actual
+    problem was, nor how to fix it, so I decided to do a thorough exampination of all the possible relationship
+    combinations you could map using Entity Framework code-first mapping.
+</p>
+<hr />
+
+<h3>Bi-Directional Relationships</h3>
+<h4>A user <strong>must have</strong> a profile</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasRequired(x => x.Profile).WithRequiredPrincipal(x => x.User);
+{% endhighlight %}
+<p>
+    Here we have the most common <code>one-to-one</code> relationship: the <code>UserProfile</code> table has a
+    foreign key to the <code>User</code> table on the <code>Id</code> columns which both happen to be primary key
+    for each table. To insert, entity framework will insert a record into the <code>User</code> table, grab the id
+    and then insert a row into the <code>UserProfile</code> table using the <em>same value from User</em> for the id.
+    Entity Framework will enforce that the <code>Profile</code> property has a value (not null) when it attempts to 
+    add or update a <code>User</code> object.
+</p>
+<p>
+    You should read this configuration as <strong>a user must have a reference to a profile, which must have a reference 
+    to the user which is the owner of the relationship</strong>.
+</p>
+<h4>A user <strong>must have</strong> a profile, which <em>may have</em> a user</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasRequired(x => x.Profile).WithOptional(x => x.User);
+{% endhighlight %}
+<p>
+    As far as I can tell, this is <strong>exactly</strong> the same as doing <code>HasRequired().WithRequiredPrincipal()</code>
+    at the database level, so whatever difference these two have it's in the layer with entity framework.
+</p>
+
+<h4>A user profile <strong>must have</strong> a user</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasRequired(x => x.Profile).WithRequiredDependent(x => x.User);
+{% endhighlight %}
+<p>
+    This is the <strong>exact same</strong> as above, except that <code>UserProfile</code> becomes the primary type in the 
+    relationship. This means that you must have a <code>UserProfile</code> record before you can have a <code>User</code>
+    record.
+</p>
+<p>
+    You should read this configuration as <strong>a profile must have a reference to a user, which must have a reference to
+    the profile which is the owner of the relationship</strong>.
+</p>
+
+<h4>A user <em>may have</em> a profile</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasOptional(x => x.Profile).WithRequired(x => x.User);
+{% endhighlight %}
+<p>
+    Here we have the <strong>exact same</strong> relationship and table structure as before with one difference: 
+    we don't actually need a profile. The <code>Profile</code> property can be null and entity framework won't complain. 
+</p>
+<p>
+    You should read this configuration as <strong>a user may have a reference to a profile, which is required to have a
+    reference to the user which is the owner of the relationship</strong>.
+</p>
+
+<h4>A profile <em>may be for</em> a specific user</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasOptional(x => x.Profile).WithOptionalPrincipal(x => x.User);
+{% endhighlight %}
+<p>
+    Here we have a slightly different table structure as before: <code>UserProfile</code> has a <code>UserId</code>
+    column which can be <code>null</code> and has a foreign key to the <code>User</code> table. In the database
+    this is a <code>one-to-many</code> relationship from <code>User</code> to <code>UserProfile</code>.
+</p>
+<p>
+    Truth be told, I'm not sure how this relationship actually works out as it seems very fragile. Normally I would
+    expect that there would be a junction table (thus making a <code>many-to-one</code> to <code>one-to-many</code>).
+</p>
+<p>
+    You should read this configuration as <strong>a user may have a reference to profile, which may have a reference to 
+    the user which is the owner of the relationship</strong>.
+</p>
+
+<h4>A user <em>may be associated</em> with a profile</h4>
+{% highlight csharp %}
+builder.Entity<User>().HasOptional(x => x.Profile).WithOptionalDependent(x => x.User);
+{% endhighlight %}
+<p>
+    With this configuration now <code>User</code> has a column <code>ProfileId</code> which has a foreign key
+    to the <code>UserProfile</code> table. This is basically the same situation as before, just the owner changed.
+</p>
+<p>
+    You should read this configuration as <strong>a profile may have a reference to a user, which may have a reference 
+    to a profile which is the owner of the relationship</strong>.
+</p>
