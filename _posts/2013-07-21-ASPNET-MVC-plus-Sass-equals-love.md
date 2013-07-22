@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASP.NET MVC + Sass = \u2665"
+title: "ASP.NET MVC \u002B Sass = \u2665"
 date: 2013-07-21 18:38:00 -0600
 categories: sass
 tags: aspnetmvc sass
