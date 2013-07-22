@@ -17,6 +17,8 @@ tags: SassyStudio sass scss
 	</p>
 </div>
 
+<img src="/assets/2013-07-21-SassyStudio.png">
+
 Today I am announcing my first Visual Studio extension: [SassyStudio](https://github.com/darrenkopp/SassyStudio). 
 Right now, there is not a lot of support for sass/scss in Visual Studio (though I believe the web team is working on it), 
 so I decided to do something about it. 
