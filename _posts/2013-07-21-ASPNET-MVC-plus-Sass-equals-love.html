@@ -1,0 +1,109 @@
+---
+layout: post
+title: "ASP.NET MVC + Sass = &hearts;"
+date: 2013-07-21 18:38:00 -0600
+categories: sass
+tags: aspnetmvc sass
+---
+<p class="jumbotron">
+    Sass makes CSS much easier to work with and since many of the popular front-end frameworks are 
+    <a href="http://foundation.zurb.com/">developing their CSS using SASS</a>, it becomes
+    essential to have friction-free support for it with ASP.NET MVC.
+</p>
+
+<p>I just spent a few hours trying to figure out how to get ASP.NET MVC and Sass to work well together.
+There are <a href="http://www.nuget.org/packages?q=sass">so many packages on NuGet</a> that <strong>claim</strong> to support sass, 
+you would think it would be easy, but it was more challenging than I had expected.</p>
+
+<p>Ultimately, I was able to get <a href="http://www.nuget.org/packages/NSass.Optimization/">NSass</a> to work the way I wanted it to
+and went with that, but here is what I found out along the way.</p>
+
+<h3>The ideal configuration</h3>
+
+<p>Before setting out to find a runtime solution, I currently was using the 
+<a href="http://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/">System.Web.Optimization</a> packages
+and build / save time compilation of the sass files.</p>
+
+<p>While this worked out reasonably well for me, it wasn't working for our designer who just wanted
+to edit the sass files and refresh the browser to see the changes. This meant that we needed a solution
+that would catch file modifications and then regenerate the css which was being minified by the 
+<code>System.Web.Optimization</code> packages.</p>
+
+<h3>SassAndCofee</h3>
+
+<p>The <a href="http://www.nuget.org/packages/SassAndCoffee.AspNet/">SassAndCofee.AspNet</a> package is by 
+<a href="http://paulbetts.org/">Paul Betts</a> and it uses the <a href="http://www.nuget.org/packages/SassAndCoffee.Ruby/">SassAndCoffee.Ruby</a> package.
+It seems to be primarily convention based and does minification, but doesn't integrate with the 
+<code>System.Web.Optimization</code> classes.</p>
+
+<p>While I did get this to work, it didn't work out for me because this library doesn't
+seem to support some newer functionality (specifically the interpolation stuff) so
+it threw an exception while parsing and then went into an infinite loop while trying to handle that exception. 
+It likely will work once the ruby parser (embedded in the assembluy) is updated.</p>
+
+<p>Unfortunately, this flaw basically makes many other packages not work.</p>
+
+<ul>
+<li><a href="http://www.nuget.org/packages/Web.Optimization.Bundles.Sass/">Web.Optimization.Bundles.Sass</a></li>
+<li><a href="http://www.nuget.org/packages/Cassette.Sass/">Cassette.Sass</a></li>
+</ul>
+
+<p>Project Site - <a href="https://github.com/xpaulbettsx/SassAndCoffee">https://github.com/xpaulbettsx/SassAndCoffee</a></p>
+
+<h3>BundleTransformer.SassAndScss</h3>
+
+<p>The <a href="http://www.nuget.org/packages/BundleTransformer.SassAndScss/">BundleTransformer.SassAndScss</a> packages 
+is very similar to SassAndCoffee.Ruby. It uses IronRuby and uses a ruby file to parse
+and compile the sass, but it can integrate with <code>System.Web.Optimization</code> to support bundling and minification.
+This package had the same problem as SassAndCoffee in that it ran into a parsing exception when
+it hit the interpolation operator, but it didn't go into a loop.</p>
+
+<p>Project Site - <a href="http://bundletransformer.codeplex.com/">http://bundletransformer.codeplex.com/</a></p>
+
+<h3>Bundler</h3>
+
+<p>The <a href="http://www.nuget.org/packages/Bundler/">Bundler</a> package is a member of the <a href="http://www.servicestack.net/">ServiceStack</a>
+family. With this you create a <code>.bundle</code> file in your content directory which has the sass files you
+want in that bundle, then you run <code>bundler.cmd</code> (or is run automatically if you have a visual
+studio extension installed) and it will generate the css files and optionally minify them.</p>
+
+<p>It also comes with some extensions in for MVC that give you functionality similar to those in <code>System.Web.Optimization</code>.
+Ultimately, I decided against using this because it wasn't that different than what I was already
+doing, but it does work and could be the ideal solution for many other people.</p>
+
+<p>Project Site - <a href="https://github.com/ServiceStack/Bundler">https://github.com/ServiceStack/Bundler</a></p>
+
+<h3>FubuMVC.Sass</h3>
+
+<p>I didn't evaluate the <a href="http://www.nuget.org/packages/FubuMVC.Sass/">FubuMVC.Sass package</a> since
+I am not using FubuMVC, but I will assume that it works.</p>
+
+<h3>NSass</h3>
+
+<p>There are a few packages to NSass:</p>
+
+<ul>
+<li><a href="http://www.nuget.org/packages/NSass.Core/">NSass.Core</a> is the core functionality to parse sass code and emit css</li>
+<li><a href="http://www.nuget.org/packages/NSass.Optimization/">NSass.Optimization</a> gives you a few classes that
+let you hook into <code>System.Web.Optimization</code></li>
+<li><a href="http://www.nuget.org/packages/NSass.Handler/">NSass.Handler</a> provides an <code>IHttpHandler</code> implementation
+that will parse requests to .scss files, which is what the <code>System.Web.Optimization</code> bundle will
+emit when in debug mode, so it's necessary when using it.</li>
+</ul>
+
+<p>This project just wraps <a href="https://github.com/hcatlin/libsass">libsass</a> and didn't run into the interpolation problem. 
+This was simultaneously this simplest project to get running and the one that took the longest to get <strong>really running</strong>.
+It works absolutely fantastic out of the box, but you need to be sure that the machine you run it on
+has the Microsoft Visual C++ redistributable runtime installed. It took me forever to figure out
+that was the reason it wouldn't work on our web servers.</p>
+
+<p>Once that problem is resolved, it is amazing.</p>
+
+<p>Project Site - <a href="https://github.com/TBAPI-0KA/NSass">https://github.com/TBAPI-0KA/NSass</a></p>
+
+<h3>Notable Mentions</h3>
+
+<p>Well, before trying to get all of this working, I was using <a href="http://www.mindscapehq.com/products/web-workbench">MindScape's Web Workbench</a>, 
+but even that had problems which is why I began looking for a runtime solution rather than a 
+build / save time solution. Once I had found NSass, all I needed next was the Visual Studio support 
+back which is why I ended up creating <a href="/posts/2013/07/21/Announcing-SassyStudio.html">SassyStudio</a>.</p>
