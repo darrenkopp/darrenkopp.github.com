@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ASP.NET MVC + Sass = love"
+title: "ASP.NET MVC + Sass = &hearts;"
 date: 2013-07-21 18:38:00 -0600
 categories: sass
 tags: aspnetmvc sass
@@ -18,7 +18,7 @@ you would think it would be easy, but it was more challenging than I had expecte
 Ultimately, I was able to get [NSass](http://www.nuget.org/packages/NSass.Optimization/) to work the way I wanted it to
 and went with that, but here is what I found out along the way.
 
-### The ideal configuration ###
+### The ideal configuration
 Before setting out to find a runtime solution, I currently was using the 
 [System.Web.Optimization](http://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/) packages
 and build / save time compilation of the sass files.
@@ -28,7 +28,7 @@ to edit the sass files and refresh the browser to see the changes. This meant th
 that would catch file modifications and then regenerate the css which was being minified by the 
 `System.Web.Optimization` packages.
 
-### SassAndCofee ###
+### SassAndCofee
 
 The [SassAndCofee.AspNet](http://www.nuget.org/packages/SassAndCoffee.AspNet/) package is by 
 [Paul Betts](http://paulbetts.org/) and it uses the [SassAndCoffee.Ruby](http://www.nuget.org/packages/SassAndCoffee.Ruby/) package.
@@ -47,7 +47,7 @@ Unfortunately, this flaw basically makes many other packages not work.
 
 Project Site - [https://github.com/xpaulbettsx/SassAndCoffee](https://github.com/xpaulbettsx/SassAndCoffee)
 
-### BundleTransformer.SassAndScss ###
+### BundleTransformer.SassAndScss
 The [BundleTransformer.SassAndScss](http://www.nuget.org/packages/BundleTransformer.SassAndScss/) packages 
 is very similar to SassAndCoffee.Ruby. It uses IronRuby and uses a ruby file to parse
 and compile the sass, but it can integrate with `System.Web.Optimization` to support bundling and minification.
@@ -56,7 +56,7 @@ it hit the interpolation operator, but it didn't go into a loop.
 
 Project Site - [http://bundletransformer.codeplex.com/](http://bundletransformer.codeplex.com/)
 
-### Bundler ###
+### Bundler
 The [Bundler](http://www.nuget.org/packages/Bundler/) package is a member of the [ServiceStack](http://www.servicestack.net/)
 family. With this you create a `.bundle` file in your content directory which has the sass files you
 want in that bundle, then you run `bundler.cmd` (or is run automatically if you have a visual
@@ -68,11 +68,11 @@ doing, but it does work and could be the ideal solution for many other people.
 
 Project Site - [https://github.com/ServiceStack/Bundler](https://github.com/ServiceStack/Bundler)
 
-### FubuMVC.Sass ###
+### FubuMVC.Sass
 I didn't evaluate the [FubuMVC.Sass package](http://www.nuget.org/packages/FubuMVC.Sass/) since
 I am not using FubuMVC, but I will assume that it works.
 
-### NSass ###
+### NSass
 There are a few packages to NSass:
 
 - [NSass.Core](http://www.nuget.org/packages/NSass.Core/) is the core functionality to parse sass code and emit css
@@ -92,8 +92,8 @@ Once that problem is resolved, it is amazing.
 
 Project Site - [https://github.com/TBAPI-0KA/NSass](https://github.com/TBAPI-0KA/NSass)
 
-### Notable Mentions ###
+### Notable Mentions
 Well, before trying to get all of this working, I was using [MindScape's Web Workbench](http://www.mindscapehq.com/products/web-workbench), 
 but even that had problems which is why I began looking for a runtime solution rather than a 
 build / save time solution. Once I had found NSass, all I needed next was the Visual Studio support 
-back which is why I ended up creating [SassyStudio](/posts/2013/07/21/Announcing-SassyStudio.html).
+back which is why I ended up creating <a href="/posts/2013/07/21/Announcing-SassyStudio.html">SassyStudio</a>.
