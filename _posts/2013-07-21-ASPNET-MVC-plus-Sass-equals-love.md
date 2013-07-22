@@ -1,14 +1,10 @@
 ---
 layout: post
 title: "ASP.NET MVC + Sass = &hearts;"
-date: 2013-07-21 18:38:00-0600
-categories:
-- sass
-tags:
-- aspnetmvc
-- sass
+date: 2013-07-21 18:38:00 -0600
+categories: sass
+tags: aspnetmvc sass
 ---
-
 <p class="jumbotron">
 	Sass makes CSS much easier to work with and since many of the popular front-end frameworks are 
 	<a href="http://foundation.zurb.com/">developing their CSS using SASS</a>, it becomes

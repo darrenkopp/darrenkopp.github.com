@@ -1,13 +1,9 @@
 ---
 layout: post
 title: Announcing SassyStudio
-date: 2013-07-21 19:36:00-0600
-categories:
-- projects
-tags:
-- SassyStudio
-- sass
-- scss
+date: 2013-07-21 19:36:00 -0600
+categories: projects
+tags: SassyStudio sass scss
 ---
 <div class="jumbotron">
 	<p>
