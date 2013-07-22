@@ -76,11 +76,8 @@ I am not using FubuMVC, but I will assume that it works.
 There are a few packages to NSass:
 
 - [NSass.Core](http://www.nuget.org/packages/NSass.Core/) is the core functionality to parse sass code and emit css
-- [NSass.Optimization](http://www.nuget.org/packages/NSass.Optimization/) gives you a few classes that
-let you hook into `System.Web.Optimization`
-- [NSass.Handler](http://www.nuget.org/packages/NSass.Handler/) provides an `IHttpHandler` implementation
-that will parse requests to .scss files, which is what the `System.Web.Optimization` bundle will
-emit when in debug mode, so it's necessary when using it.
+- [NSass.Optimization](http://www.nuget.org/packages/NSass.Optimization/) gives you a few classes that let you hook into `System.Web.Optimization`
+- [NSass.Handler](http://www.nuget.org/packages/NSass.Handler/) provides an `IHttpHandler` implementation that will parse requests to .scss files, which is what the `System.Web.Optimization` bundle will emit when in debug mode, so it's necessary when using it.
 
 This project just wraps [libsass](https://github.com/hcatlin/libsass) and didn't run into the interpolation problem. 
 This was simultaneously this simplest project to get running and the one that took the longest to get **really running**.
