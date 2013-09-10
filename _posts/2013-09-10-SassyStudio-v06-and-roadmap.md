@@ -76,3 +76,4 @@ roadmap will be much more beneficial to the user.
 
 If you have any feedback on what you would like to see in SassyStudio, feel free to leave a comment here
 or [enter it as an issue on GitHub](https://github.com/darrenkopp/SassyStudio/issues).
+
