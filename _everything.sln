@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 		_posts\2013-07-21-ASPNET-MVC-plus-Sass-equals-love.html = _posts\2013-07-21-ASPNET-MVC-plus-Sass-equals-love.html
 		_posts\2013-07-22-Sassy-Studio-v03.md = _posts\2013-07-22-Sassy-Studio-v03.md
 		_posts\2013-07-23-Sassy-Studio-v04.md = _posts\2013-07-23-Sassy-Studio-v04.md
-		_posts\2013-09-10-SassyStudio-v06-and-roadmap.md = _posts\2013-09-10-SassyStudio-v06-and-roadmap.md
+		_posts\2013-09-10-SassyStudio-v06-and-roadmap.html = _posts\2013-09-10-SassyStudio-v06-and-roadmap.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
