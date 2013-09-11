@@ -20,14 +20,15 @@ paginate: 5
 {% endfor %}
 
 <!-- Pagination links -->
-<nav class="pagination">
+<hr />
+<ul class="pager">
     {% if paginator.page > 1 %}
-        <span class="prev">{% if paginator.previous_page == 1 %} <a href="/">Previous</a>{% else %}<a href="/page/{{paginator.previous_page}}/">Previous</a>{% endif %}</span>
+        <li class="previous">{% if paginator.previous_page == 1 %} <a href="/">Previous Page</a>{% else %}<a href="/page/{{paginator.previous_page}}/">Previous Page</a>{% endif %}</li>
     {% endif %}
     {% if paginator.next_page and paginator.total_pages > 1 %}
-    <span class="next"><a href="/page/{{paginator.next_page}}/" class="next">Next</a></span>
+        <li class="next"><a href="/page/{{paginator.next_page}}/">Next Page</a></li>
     {% endif %}
-</nav>
+</ul>
 
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

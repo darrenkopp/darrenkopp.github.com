@@ -20,8 +20,9 @@
     
     <link rel="me" type="text/html" href="https://plus.google.com/115676611646777703234?rel=me" />
     <link rel="me" type="text/html" href="https://twitter.com/{{ site.twitter }}" />
-
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/pygments.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <script type="text/javascript">
@@ -46,7 +47,7 @@
 </head>
 <body>
     <div class="container">
-        <header id="sidebar" class="span3">
+        <header id="sidebar" class="col-md-3">
             <a href="/" class="thumbnail">
                 <figure class="logo">
                     <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" />
@@ -54,7 +55,7 @@
             </a>
             <h1>On Software</h1>
             <h2>Darren Kopp</h2>
-            <h3 class="muted">Navigating through software, line by line</h3>
+            <h3 class="text-muted">Navigating through software, line by line</h3>
             <nav>
                 <ul class="menu list-unstyled">
                     <li><a href="/about">About</a></li>
@@ -67,7 +68,7 @@
                 <li><a href="mailto:{{ site.email }}?subject=Hello">Chat</a></li>
             </ul>
         </header>
-        <section id="river" class="span8">
+        <section id="river" class="col-md-9">
             {{content}}
         </section>
     </div>
