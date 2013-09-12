@@ -14,7 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 	ProjectSection(SolutionItems) = preProject
 		_posts\2013-03-06-its-ok-to-rewrite-applications-from-scratch-sometimes.html = _posts\2013-03-06-its-ok-to-rewrite-applications-from-scratch-sometimes.html
 		_posts\2013-03-07-delete-your-code.html = _posts\2013-03-07-delete-your-code.html
-		_posts\2013-03-12-own-your-online-presence.md = _posts\2013-03-12-own-your-online-presence.md
 		_posts\2013-03-20-Read-and-Write-in-one-statement.html = _posts\2013-03-20-Read-and-Write-in-one-statement.html
 		_posts\2013-04-09-Playing-with-fire-Optimizing-the-ASPState-internals.html = _posts\2013-04-09-Playing-with-fire-Optimizing-the-ASPState-internals.html
 		_posts\2013-04-19-Post-mortem-of-my-failed-interview.html = _posts\2013-04-19-Post-mortem-of-my-failed-interview.html
@@ -28,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 		_posts\2013-07-22-Sassy-Studio-v03.md = _posts\2013-07-22-Sassy-Studio-v03.md
 		_posts\2013-07-23-Sassy-Studio-v04.md = _posts\2013-07-23-Sassy-Studio-v04.md
 		_posts\2013-09-10-SassyStudio-v06-and-roadmap.html = _posts\2013-09-10-SassyStudio-v06-and-roadmap.html
+		_posts\2013-09-12-A-primer-on-fingerprint-identification.md = _posts\2013-09-12-A-primer-on-fingerprint-identification.md
+		_posts\2013-09-12-own-your-online-presence.md = _posts\2013-09-12-own-your-online-presence.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
