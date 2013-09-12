@@ -6,7 +6,7 @@ published: true
 categories: software
 tags:  optimization aspstate
 ---
-<p class="alert">
+<p class="alert alert-warning">
     <strong>Caution</strong>: what you are about to read is risky. If you do decide to go this route, make sure to <strong>do a lot of testing!</strong>
 </p>
 <p>
@@ -144,7 +144,7 @@ BEGIN
     END
 END
 {% endhighlight %}
-<p class="alert">
+<p class="alert alert-info">
     The way the original code worked, your session would be extended if the session could be locked as it attempts to lock the session repeatedly until it
     actually acquires the lock. This is a breaking change from the original, but if you are using session on pages that take a long time, I would suggest
     looking into getting rid of session usage on those pages.
