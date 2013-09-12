@@ -2,13 +2,12 @@
 layout: post
 date: 2013-09-12 07:00:00 -06:00 
 title: "Simple ways to stay in control of your online presence"
-published: false
 ---
 
 <p class="jumbotron">
-Companies come and go and <a href="http://blog.posterous.com/thanks-from-posterous">content hosts are no different</a>. 
-Unfortunately, they can go fairly suddenly and if you aren't careful, so can your content and a lot of other unseen work. 
-There are some very simple steps that you can take to insulate yourself from unforeseen events.
+	Companies come and go and <a href="http://blog.posterous.com/thanks-from-posterous">content hosts are no different</a>. 
+	Unfortunately, they can go fairly suddenly and if you aren't careful your content could go along with it. 
+	There are some very simple steps that you can take to insulate yourself from these unforeseen events.
 </p>
 
 ### Use your own domain name
@@ -39,6 +38,12 @@ from the FeedBurner servers to back to your domain and host and serve your RSS f
 no one will ever that anything changed. If you are extremely concerned about Google taking the axe
 to FeedBurner, then I would suggest that you look into some alternatives like [FeedBlitz](http://feedblitz.com) or [FeedPress](http://feedpress.com).
 
+<aside class="alert alert-info">
+	I started writing this entry in March and since then <a href="http://googleblog.blogspot.com.au/2013/03/a-second-spring-of-cleaning.html">Google Reader has shut down</a>.
+	In light of this shutdown, I would say it's worth looking into FeedBurner alternatives, but at this point I am still using FeedBurner
+	since it still just works (for now).
+</aside>
+
 ### Use analytics
 
 Analytics may seem like an odd suggestion here since you likely won't be in complete control of the data, but it  is very important to your presence in general. 
@@ -54,3 +59,6 @@ There are lots of great analytics providers out there for free or paid.
 Do your research and pick someone who offers what you want to know. 
 Some of the larger providers include [Google Analytics](http://www.google.com/analytics/), [StatCounter](http://statcounter.com/free-web-stats/), [Gaug.es](http://get.gaug.es/), and many more. 
 Many content providers also provide stats that may serve all of your needs.
+
+It's worth mentioning [Google Webmaster Tools](https://www.google.com/webmasters/tools/home) here since you can get
+some very useful statistics on search traffic as well as average rank of your content in search results.
