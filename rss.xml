@@ -1,7 +1,7 @@
 ---
 layout: nil
 ---
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0"?>
 <rss version="2.0">
   <channel>
     <title>{{ site.name }}</title>
@@ -23,8 +23,8 @@ layout: nil
     <item>
       <title>{{ post.title | xml_escape }}</title>
       <link>{{ site.url }}{{ post.url }}</link>
-      <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-      <author>{{ site.email }}</author>
+      <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %Z" }}</pubDate>
+      <author>{{ site.email }} ({{ site.author }})</author>
       <guid>{{ site.url }}{{ post.id }}</guid>
       <description>{{ post.content | xml_escape }}</description>
     </item>
