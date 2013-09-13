@@ -1,0 +1,81 @@
+---
+layout: post
+title: A primer on fingerprint identification
+date: 2013-09-12 22:07:00 -0600
+category: technology
+tags: fingerprint iphone
+---
+<p class="jumbotron">
+    Since Apple announced that the new iPhone would have a fingerprint reader there has been a lot of concerns about privacy.
+	I'll try to explain the fingerprint technology that Apple is using as I understand it and attempt to address some of the
+	concerns I have heard being raised.
+</p>
+
+<p class="alert alert-success">
+    What I present here is based on my experience as a developer working with the Authentec SDK (whom Apple acquired a little while ago)
+    but <strong>I am by no means an expert</strong>. My experience is limited to the Authentec SDK and the Zvetco fingerprint sensor. 
+</p>
+
+<h3>A high level look at what is happening</h3>
+<p>
+    When you place your fingerprint on the sensor, it doesn't "scan" your fingerprint like your typical scanner.
+    The sensor <a href="http://computer.howstuffworks.com/fingerprint-scanner3.htm">maps the electrical conductivity of the fingerprint</a> and generates a model of your fingerprint.
+    This can then be converted into an image which would resemble your fingerprint, but it's important to understand
+    that it's done via conductivity because a paper is not electrically conductive and thus you could not trick the sensor
+    with a picture of a fingerprint.
+</p>
+<p>
+    Once the fingerprint has been mapped by the sensor the next step is to generate the fingerprint template.
+    The template is basically just enough information <em>about</em> your fingerprint to match it again, but it <em>is not an image of the fingerprint</em>.
+    This is what Apple will store, and I do not believe that you would be able to recreate the fingerprint image from
+    the template.
+</p>
+
+<h3>The fingerprint image</h3>
+<p>
+    As I stated above, the map of the fingerprint can be visualized in a what that very closely resembles your fingerprint because it
+    is almost like taking a picture of your finger. The lifetime of this map, however, is likely very short. 
+    Typically once the fingerprint has been scanned the sensor notifies the operating system that a new map is ready and the operating system
+    would then pass that on to the authentication system which will request the fingerprint map data from the sensor.
+</p>
+<p>
+    Once the sensor provides the data to the requestor, it could <em>immediately</em> discard the information or after a certain period of time.
+    I cannot tell you for certain what the iPhone sensor does, but I would guess that if it doesn't discard immediately, it does so within a short period
+    of time.
+</p>
+
+<h3>The template</h3>
+<p>
+    When it comes to the actual information the template actually stores, I'm a complete novice. I'm going to speculate on what it likely stores,
+    but I would definitely not consider it to be correct, but likely something like that.
+</p>
+<p>
+    The template represents enough information to repeatedly match the fingerprint, but it is not a monolithic piece of data.
+    Typically, you will generate the template by "enrolling" the fingerprint which consists of three to five scans of the fingerprint.
+    Once the enrollment is done, you can now match subsequent fingerprint scans to the template. Typically, you would update the template with subsequent
+    scans as well, improving the accuracy of the matching over time.
+</p>
+<p>
+    I have <a href="http://www.macworld.com/article/2048514/the-iphone-5s-fingerprint-reader-what-you-need-to-know.html">seen other articles</a> which 
+    state that perhaps Apple is hashing the template, which would make the template indecipherable, but it would also make the accuracy very low and
+    would not allow the template to be updateable, so I do not believe that is what Apple is doing. At the same time, I do not believe that you
+    can get much information about the fingerprint from the template.
+</p>
+<p>
+    So what is in the template? Like I said, I really don't know. If I were to guess, I would say that they first detect some of the more
+    prominent fingerprint features (such as swirls, loops, etc), and then take some measurements between those features. The algorithm
+    should pick the prominent features each time, and thus is just needs to validate that the measurements are within tolerances and then 
+    it would be considered a match.
+</p>
+<p>
+    If you are curious as to what data the template stores, you can <a href="/assets/2013-09-12-fingerprint-template.bin">download my fingerprint template</a>
+    and play around with the data and see what information you can extract from it. This template was generated using the Authentec SDK about 3-4 years ago.
+    I would be genuinely interested in what you can decipher from the template.
+</p>
+
+<h3>Conclusion</h3>
+<p>
+    Ultimately, I don't think there are very many privacy concerns here. I don't believe you can reverse engineer the template back into
+    something that resembles a fingerprint, which is why I feel comfortable posting my template onto the internet. Apple claims that the
+    template is not transfered anywhere, so the privacy concern should be even less.
+</p>
