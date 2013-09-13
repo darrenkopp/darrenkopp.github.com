@@ -86,7 +86,7 @@ OUTPUT inserted.Id
     If you aren't using SQL Server, there may be an equivalent of this technique supported by your database. The <code>RETURNING</code> clause is the most common variant and it's supported by <a href="http://www.postgresql.org/docs/9.2/static/sql-update.html">PostgreSQL</a> and <a href="http://docs.oracle.com/cd/B19306_01/appdev.102/b14261/returninginto_clause.htm">Oracle</a>.
 </p>
 
-<aside class="muted">
+<aside class="text-muted">
     PS: You'll notice <code>SELECT *</code> in the query above, which we know isn't good for performance.
     In this instance, however, it has no effect on performance because the <code>OUTPUT</code> clase is basically the effective select statement for the query, and thus the select statement inside the CTE doesn't really matter.
     It does allow me to not have to write all the columns multiple times, however.
