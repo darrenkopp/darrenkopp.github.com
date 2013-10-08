@@ -1,0 +1,106 @@
+---
+layout: post
+title: Language design and tooling - Exploring SCSS
+date: 2013-10-08 11:00:00 -06:00
+category: design
+tags: language-design scss
+---
+
+<p class="jumbotron">In my <a href="https://github.com/darrenkopp/SassyStudio">recent work in SassyStudio</a> to support the 
+<a href="http://sass-lang.com/">SCSS language</a> I have hit a few hurdles. While I don't have any 
+problems with the SCSS specification, I think it's worth delving into some tooling hurdles 
+that I've encountered due to the way SCSS works.</p>
+
+<h3>Back To Basics - CSS</h3>
+
+<p>First, lets disect a very basic CSS rule set</p>
+{% highlight scss %}
+ul li:hover {
+    color:red;
+}
+{% endhighlight %}
+
+<p>Here we have a few components.</p>
+
+<ul>
+<li><code>ul</code> and <code>li:hover</code> are the "selectors" for this rule.</li>
+<li><code>:hover</code> is a pseudo-selector for the <code>li</code> element that only applies when the element is being hovered over</li>
+<li><code>color:red</code> is setting the <code>color</code> property of the <code>li</code> element's foreground text to <code>red</code></li>
+</ul>
+
+<p>Pretty simple. The CSS syntax is pretty flat compared to SCSS which adds nesting, so it means that 
+the selectors will always be at the root of the document and then the rule body will have properties.
+It is also worth noting that CSS does not require there to be any whitespace between the colon and the
+property value.</p>
+
+<p>Now lets look at an equivalent SCSS rule set</p>
+
+{% highlight scss %}
+ul {
+    li:hover {
+        color: red;
+    }
+}
+{% endhighlight %}
+
+<p>Since SCSS allows us to have nested selectors, we bump into our first problem: pseudo-selectors.
+Let's say you have typed out your <code>ul</code> rule set and begin typing <code>li</code> and then hit the colon.
+Currently, we are in an <strong>ambiguous context</strong>: do we have an <strong>li element</strong> that we would like to show
+code completion for pseudo-selectors or do we have a <strong>li property</strong>?</p>
+
+<p>There's a few ways to resolve this, but they are all brittle: we could try to see if we
+have a valid property name, but that requires us to keep an up-to-date schema, including browser 
+specific properties, which is ideal, but tough. Furthermore, we could have non-text property names and
+selector components like <code>#{$some-variable}</code> which would then require us to evaluate the variable, 
+which could be expensive.</p>
+
+<p>
+	Another way we could address this problem is look at the element and see if there is a pseudo-selector for it.
+	Unfortunately this won't work because most pseudo-elements apply to all elements.
+</p>
+
+<p>The <strong>most logical</strong> way to address this problem (although still not useful in the code completion context) 
+would be to look for the opening curly brace to determine if something is a selector or not. Unfortunately for us, SCSS supports 
+<a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#nested_properties">nested properties</a>
+which means that the following is a completely valid property, not a selector.</p>
+
+{% highlight scss %}
+.nesting {
+    font: 2px/3px {
+        family: fantasy;
+        size: 30em;
+        weight: bold;
+    }
+}
+{% endhighlight %}
+
+<p>
+	Granted in that example there is a space after the colon, but the example doesn't matter as much
+	as the concept. There's <strong>no real definitive way</strong> to know definitively tell between a property and 
+	selector when there is only one value, and thus, the only safe way to handle this scenario from tooling is by <strong>not providing 
+	completion for pseudo-selectors, only properties</strong>.
+</p>
+
+<p>
+	This is still not ideal, but it's better than the alternative, which would be that anytime you entered the property
+	value context by typing a colon, you would get a list of pseudo-selectors, pseudo-classes, and pseudo-functions. 
+	Since you are likely to be providing more properties than selectors in a document, I chose to err on the side of assuming
+	something is a property.
+</p>
+
+<h3>Reflecting back</h3>
+
+<p>
+	When it all comes down to it, the main problem here is that the SCSS language (which is a superset of CSS3)
+	introduces some ambiguities that were not present in CSS3. While they are fairly easy to work around at a
+	<strong>document</strong> level, they aren't as easy to work around in an <strong>interactive</strong> environment.
+</p>
+
+<p>
+	How would I solve this? Unfortunately, I don't have any great ideas yet.
+	Ultimately, if there was an operator for nested selector like the parent reference operator, this wouldn't
+	be a problem. We would have an easy way to tell the context we were in and it would make parsing a lot simipler.
+	On the other hand, it's not <em>really</em> necessary and would likely get annoying. Ultimately the problem arises
+	<strong>only when you are in the process of writing your document</strong>; everything is simpler when dealing with the document
+	as a whole. Unfortunately, that's almost the entire process from the tooling aspect.
+</p>
