@@ -12,6 +12,12 @@ tags: scss intellisense
 	without the using the <code>@import</code> directive.
 </p>
 
+<div class="alert alert-warning">
+	<strong>Update:</strong> Looks like the <a href="http://blogs.msdn.com/b/webdev/archive/2013/11/06/a-high-value-undocumented-less-editor-feature-in-visual-studio.aspx">LESS functionality in visual studio supports
+	the same syntax</a> as this, which is awesome! Originally I was using the attribute <strong>file</strong>
+	but have since updated it to use the attribute <strong>path</strong> to match.
+</div>
+
 With large applications you'll typically find yourself breaking your SCSS files into logical groups,
 typically centered around functional components. This is clean and efficient, but you lose intellisense
 when you do... until now.
@@ -19,12 +25,12 @@ when you do... until now.
 To accomplish this, I have started support for the `reference` tag in a triple slash (`///`) comment.
 An example of this would be
 
-    /// <reference file="variables" /> 
+    /// <reference path="variables" /> 
 
 To get intellisense for multiple files, just add multiple references
 
-    /// <reference file="variables" />
-    /// <reference file="mixins" />
+    /// <reference path="variables" />
+    /// <reference path="mixins" />
 
 The `reference` tag works the same as a `@import` statement, and it can serve
 as documentation for what files the current file you are working on depends on.
