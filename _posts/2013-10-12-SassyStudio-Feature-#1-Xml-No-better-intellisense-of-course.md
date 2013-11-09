@@ -25,12 +25,16 @@ when you do... until now.
 To accomplish this, I have started support for the `reference` tag in a triple slash (`///`) comment.
 An example of this would be
 
-    /// <reference path="variables" /> 
+```xml
+/// <reference path="variables" /> 
+```
 
 To get intellisense for multiple files, just add multiple references
 
-    /// <reference path="variables" />
-    /// <reference path="mixins" />
+```xml
+/// <reference path="variables" />
+/// <reference path="mixins" />
+```
 
 The `reference` tag works the same as a `@import` statement, and it can serve
 as documentation for what files the current file you are working on depends on.
