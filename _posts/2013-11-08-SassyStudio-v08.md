@@ -53,6 +53,7 @@ As usual there have been some various bug fixes.
 * Fix `@if` directive not parsing correctly when immediately followed by (
 * Improve CSS property detection and fix properties declarations not 
 followed by a space not being highlighted correctly
+* Fix incorrect highlighting after using comment/uncomment selection command
 
 ### Moving Forward
 
