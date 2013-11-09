@@ -4,6 +4,7 @@ pretzel:
 paginate: 5
 paginate_path: "page/:num"
 pygments: true
+markdown: redcarpet
 permalink: /posts/:year/:month/:day/:title.html
 author: Darren Kopp
 name: Darren Kopp - On Software
