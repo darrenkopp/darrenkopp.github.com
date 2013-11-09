@@ -1,7 +1,7 @@
 ---
 layout: post
 title: SassyStudio v0.8
-date: 2013-10-12 21:00:00 -06:00
+date: 2013-11-08 21:00:00 -06:00
 category: SassyStudio
 tags: scss intellisense
 ---
