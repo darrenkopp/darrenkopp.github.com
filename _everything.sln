@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 		_posts\2013-09-12-own-your-online-presence.html = _posts\2013-09-12-own-your-online-presence.html
 		_posts\2013-10-08-Language-design-and-tooling.html = _posts\2013-10-08-Language-design-and-tooling.html
 		_posts\2013-10-12-SassyStudio-Feature-#1-Xml-No-better-intellisense-of-course.md = _posts\2013-10-12-SassyStudio-Feature-#1-Xml-No-better-intellisense-of-course.md
+		_posts\2013-11-08-SassyStudio-v08.md = _posts\2013-11-08-SassyStudio-v08.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
