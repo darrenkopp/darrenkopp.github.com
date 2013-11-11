@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SassyStudio Feature #1: Xml? No, better intellisense of course!"
-date: 2013-10-12 21:00:00 -06:00
+date: 2013-10-12 21:00:00
 category: SassyStudio
 tags: scss intellisense
 ---
