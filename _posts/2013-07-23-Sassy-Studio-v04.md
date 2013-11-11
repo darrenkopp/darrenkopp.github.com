@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Sassy Studio v0.4
-date: 2013-07-23 23:27:00 -0600
+date: 2013-07-23 23:27:00
 category: SassyStudio
 tags: SassyStudio sass scss
 ---
