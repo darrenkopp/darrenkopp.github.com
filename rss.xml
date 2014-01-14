@@ -22,7 +22,7 @@ layout: nil
     {% for post in site.posts %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
-      <link>{{ site.url }}{{ post.id }}</link>
+      <link>{{ site.url }}{{ post.url }}</link>
       <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
       <author>{{ site.email }} ({{ site.author }})</author>
       <guid>{{ site.url }}{{ post.id }}</guid>

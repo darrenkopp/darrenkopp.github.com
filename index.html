@@ -6,11 +6,11 @@ paginate: 5
 {% for post in paginator.posts %}
 	<article class="post">
         <header class="page-header">
-            <h2><a href="{{ post.id }}">{{ post.title }}</a></h2>
+            <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
             <ul class="list-inline">
                 <li><time datetime="{{ post.date }}" class="when text-muted">{{ post.date | date: "%B %d, %Y" }}</time></li>
                 <li><a href="/about">{{ site.author }}</a></li>
-                <li><span><a href="{{ post.id }}#disqus_thread">&nbsp;&nbsp;Comments</a></span></li>
+                <li><span><a href="{{ post.url }}#disqus_thread">&nbsp;&nbsp;Comments</a></span></li>
             </ul>
         </header>
         <section>
