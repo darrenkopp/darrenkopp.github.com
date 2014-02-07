@@ -6,7 +6,7 @@ category: performance
 tags: SqlGeography algorithm
 ---
 <p class="jumbotron">
-	When life gives you an <a href="http://en.wikipedia.org/wiki/Big_O_notation"><em>O(n<sup>2</sup>)</em></a> algorithm, it's time to get creative
+	When life gives you an <a href="http://en.wikipedia.org/wiki/Big_O_notation"><em>O(n<sup>k</sup>)</em></a> algorithm, it's time to get creative
 	and respond with your own logarithmic algorithm.
 </p>
 
@@ -33,7 +33,7 @@ When I started searching around for some alternatives to STUnion, I found this g
 
 <img src="http://i.imgur.com/JXdHk0H.png">
 
-Classic <code>O(n<sup>2</sup>)</code> problem from the look of it.
+Classic <code>O(n<sup>k</sup>)</code> problem from the look of it.
 
 ### Taming the beast
 
