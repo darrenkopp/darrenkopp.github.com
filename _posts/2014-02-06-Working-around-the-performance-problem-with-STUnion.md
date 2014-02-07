@@ -6,7 +6,7 @@ category: performance
 tags: SqlGeography algorithm
 ---
 <p class="jumbotron">
-	When life gives you an <em>O(n<sup>2</sup>)</em> algorithm, it's time to get creative
+	When life gives you an <a href="http://en.wikipedia.org/wiki/Big_O_notation"><em>O(n<sup>2</sup>)</em></a> algorithm, it's time to get creative
 	and respond with your own logarithmic algorithm.
 </p>
 
@@ -16,8 +16,9 @@ we grabbed the shape files for the United States off of [GADM](http://gadm.org/)
 
 An hour later, the process still hadn't finished the first (and largest) shape file.
 Something was definitely wrong and so I dug in and found out where the code was stuck at and found that
-the code was iterating through all the points and combining them together into one big SqlGeography instance
-via the STUnion method. Below is an example of the code
+the code was iterating through all the points and combining them together into one big [SqlGeography](http://technet.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.aspx) instance
+via the [STUnion method](http://technet.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.stunion.aspx). 
+Below is an example of the code that was doing this
 
 ```csharp
 SqlGeography shape = polygons[0];
@@ -32,7 +33,7 @@ When I started searching around for some alternatives to STUnion, I found this g
 
 <img src="http://i.imgur.com/JXdHk0H.png">
 
-Classic `O(n<sup>2</sup>)` problem from the look of it.
+Classic <code>O(n<sup>2</sup>)</code> problem from the look of it.
 
 ### Taming the beast
 
@@ -69,19 +70,28 @@ This means that most of our operations are done on small objects, thus minimizin
 
 For example, consider 512 polygons.
 
-|Operation Count|Left Size|Right Size|
-| ------------- | -----------: | -----------:
-256 | 1 | 1
-128 | 2 | 2
-64 | 4 | 4
-32 | 8 | 8
-16 | 16 | 16
-8 | 32 | 32
-4 | 64 | 64
-2 | 128 | 128
+<table class="table table-striped">
+	<thead>
+		<tr><th>Operation Count</th><th>Left Size</th><th>Right Size</th></tr>
+	</thead>
+	<tbody>
+		<tr><td>256</td><td>1</td><td>1</td></tr>
+		<tr><td>128</td><td>2</td><td>2</td></tr>
+		<tr><td>64</td><td>4</td><td>4</td></tr>
+		<tr><td>32</td><td>8</td><td>8</td></tr>
+		<tr><td>16</td><td>16</td><td>16</td></tr>
+		<tr><td>8</td><td>32</td><td>32</td></tr>
+		<tr><td>4</td><td>64</td><td>64</td></tr>
+		<tr><td>2</td><td>128</td><td>128</td></tr>
+		<tr><td>1</td><td>256</td><td>256</td></tr>
+	</tbody>
+</table>
+
+We can easily see that we are now minimizing the number of operations that we are doing on large shapes.
 
 ### Reviewing the solution
 
 So how well does this work out? Well the first time I ran this, it never finished the first shape 
 file in <strong>over and hour and a half</strong> while this algorithm lets me process this shape file 
-in <strong>just under 4 minutes</strong>.
+in <strong>just under 4 minutes</strong>. A great result from a simple change in how we process the
+polygon shapes.
