@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Working around the performance problem with STUnion
+title: Working around the performance problem of STUnion
 date: 2014-02-07 00:00:00
 category: performance
 tags: SqlGeography algorithm
