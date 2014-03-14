@@ -15,7 +15,7 @@ While doing some pair-programming with my co-worker Brent today I noticed someth
 on his screen. It looked like he executed the query, but the results did not match what the query
 was doing at all. On the contrary, it was a large amount of meta-data about a table.
 
-How is this possible? All you need to do is an object in the query editor and press 
+How is this possible? All you need to do is highlight an object in the query editor and press 
 <kbd>Alt</kbd> + <kbd>F1</kbd>, then you will see a lot of useful meta-data in the query results
 window. No need to go traverse the tree in object explorer anymore!
 
