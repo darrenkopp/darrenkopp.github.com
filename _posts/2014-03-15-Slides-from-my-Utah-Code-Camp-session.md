@@ -6,7 +6,7 @@ category: speaking
 tags: sass utah-code-camp
 ---
 
-I had the pleasure of presenting a session on [SASS](http://sass-lang.com/) for Utah Code Camp.
+I had the pleasure of presenting a session on [SASS](http://sass-lang.com/) for [Utah Code Camp](http://utahcodecamp.com/).
 It was a great event and I'm glad that I was able to participate! Below is the slide deck
 for my session "Supercharge CSS with SASS"
 
