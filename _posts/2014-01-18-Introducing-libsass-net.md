@@ -8,7 +8,7 @@ tags: sass libsass
 <p class="jumbotron">
 	Although there are already <a href="https://libsassnet.codeplex.com/">other</a> <a href="https://github.com/TBAPI-0KA/NSass">projects</a>
 	that wrap <a href="https://github.com/hcatlin/libsass">libsass</a>, they don't appear to be maintained anymore, so I fork'd NSass and fixed some of 
-	the maintainability problems with it. From that, [libsass-net was born](https://github.com/darrenkopp/libsass-net).
+	the maintainability problems with it. From that, <a href="https://github.com/darrenkopp/libsass-net">libsass-net was born</a>.
 </p>
 
 ### Introduction
