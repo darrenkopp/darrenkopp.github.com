@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{CE7B5E8F-8988-442F-ADC9-D4A29DF678D1}"
 	ProjectSection(SolutionItems) = preProject
@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 		_posts\2014-03-13-The-most-amazing-keyboard-command-for-Sql-Server-Management-Studio.md = _posts\2014-03-13-The-most-amazing-keyboard-command-for-Sql-Server-Management-Studio.md
 		_posts\2014-03-15-Slides-from-my-Utah-Code-Camp-session.md = _posts\2014-03-15-Slides-from-my-Utah-Code-Camp-session.md
 		_posts\2014-05-07-Ignoring-SignalR-in-NewRelic.md = _posts\2014-05-07-Ignoring-SignalR-in-NewRelic.md
+		_posts\2014-05-26-libsassnet-nuget-packages.md = _posts\2014-05-26-libsassnet-nuget-packages.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
