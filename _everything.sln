@@ -40,6 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC
 		_posts\2014-03-15-Slides-from-my-Utah-Code-Camp-session.md = _posts\2014-03-15-Slides-from-my-Utah-Code-Camp-session.md
 		_posts\2014-05-07-Ignoring-SignalR-in-NewRelic.md = _posts\2014-05-07-Ignoring-SignalR-in-NewRelic.md
 		_posts\2014-05-26-libsassnet-nuget-packages.md = _posts\2014-05-26-libsassnet-nuget-packages.md
+		_posts\2014-07-12-making-posh-git-more-humane.md = _posts\2014-07-12-making-posh-git-more-humane.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{ED05E746-65AC-40CC-BD64-2A345EF394C1}"
@@ -60,6 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pages", "pages", "{A019602D
 	ProjectSection(SolutionItems) = preProject
 		about.md = about.md
 		index.html = index.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{324A44FD-37C5-4070-8BF7-E58FFF1BA9D6}"
+	ProjectSection(SolutionItems) = preProject
+		assets\2013-07-21-SassyStudio.png = assets\2013-07-21-SassyStudio.png
+		assets\2013-09-12-fingerprint-template.bin = assets\2013-09-12-fingerprint-template.bin
+		assets\2014-07-13-console-properties-dark-red-position.png = assets\2014-07-13-console-properties-dark-red-position.png
 	EndProjectSection
 EndProject
 Global
