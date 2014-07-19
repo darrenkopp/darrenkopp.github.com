@@ -19,7 +19,7 @@ It should be pretty clear which color in the row of colors is dark red, but if i
 from the left**.
 
 <div class="text-center">
-	<img src="/assets/2014-07-13-console-properties-dark-red-position.png" title="Position of the dark red color in the console properties window">
+	<img src="/assets/2014-07-13-console-properties-dark-red-position.png" title="Position of the dark red color in the console properties window" width="665" height="337">
 </div>
 
 Once you select the dark red color, you can the selected color values to a more humane color. As can be seen in the
