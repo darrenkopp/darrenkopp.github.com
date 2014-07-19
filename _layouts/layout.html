@@ -46,26 +46,28 @@
     <div class="container">
         <div class="row">
             <header id="sidebar" class="col-lg-2 col-md-3 col-sm-3">
-                <section class="tagline">
+                <section class="tagline clearfix">
                     <a href="/" class="thumbnail">
                         <figure class="logo">
                             <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" width="80" height="80" />
                         </figure>
                     </a>
-                    <h1>Darren Kopp</h1>
-                    <h2 class="text-muted">Navigating through software, line by line</h2>
-                    <nav class="hidden-xs">
-                        <ul class="menu list-unstyled">
-                            <li><a href="/about">About</a></li>
-                        </ul>
-                    </nav>
+                    <div>
+                        <h1 class="name">Darren Kopp</h1>
+                        <h2 class="text-muted">Navigating through software, line by line</h2>
+                        <nav>
+                            <ul class="list-unstyled">
+                                <li><a href="/about">About Me</a></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </section>
 
                 <ul class="social list-unstyled hidden-xs">
-                    <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
-                    <li><a href="https://github.com/{{ site.github_url }}">GitHub</a></li>
-                    <li><a href="{{ site.rss_url }}">rss</a></li>
-                    <li><a href="mailto:{{ site.email }}?subject=Hello">Chat</a></li>
+                    <li><a class="twitter" href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
+                    <li><a class="github" href="https://github.com/{{ site.github_url }}">GitHub</a></li>
+                    <li class="hidden-xs"><a href="{{ site.rss_url }}">rss</a></li>
+                    <li><a class="email" href="mailto:{{ site.email }}?subject=Hello">Chat</a></li>
                 </ul>
             </header>
             <section id="river" class="col-lg-10 col-md-9 col-sm-9">

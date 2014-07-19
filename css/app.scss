@@ -2,8 +2,11 @@
 @import "../_sass/bootstrap";
 @import "../_sass/pygments";
 
+$site-bg: #f9f9f9;
+$site-border: darken($site-bg, 2%);
+
 body {
-	background-color: #f9f9f9;
+	background-color: $site-bg;
 }
 
 hr {
@@ -15,10 +18,9 @@ hr {
 
 .container {
 	background-color: $body-bg;
-	$container-border-color: darken(#f9f9f9, 2%);
 
-	border-right: 1px solid $container-border-color;
-	border-left: 1px solid $container-border-color;
+	border-right: 1px solid $site-border;
+	border-left: 1px solid $site-border;
 }
 
 #river {
@@ -39,21 +41,20 @@ hr {
 			font-size: 21px;
 		}
 	}
-
-	.page-header {
-		@media(max-width: $screen-sm-min) {
-			margin: 0;
-
-			h1, h2, h3, h4, h5, h6 {
-				margin: 0;
-			}
-		}
-	}
 }
 
 #sidebar {
 	padding-left: 3%;
-	padding-top: 40px;
+	padding-top: $grid-gutter-width / 2;
+
+	@media(min-width: $screen-sm-min) {
+		padding-top: ($line-height-computed * 2) + 5px;
+	}
+
+	@media(max-width: $screen-sm-min - 1) {
+		background-color: $site-bg;
+		border-bottom: 1px solid $site-border;
+	}
 
 	.tagline {
 		.thumbnail {
@@ -67,22 +68,28 @@ hr {
 			}
 		}
 
-		> h1, #sidebar > h2, #sidebar > h3 {
-			margin: 0;
-		}
+		h1, h2 { margin: 0; }
 
 		h1 {
 			font-size: 22px;
 			font-weight: 700;
-			margin-top: 0;
+			margin-bottom: 10px;
+
+			@media(min-width: $screen-sm-min) {
+				font-size: 25px;
+				margin-bottom: $line-height-computed;
+			}
 		}
 
 		h2 {
 			font-size: 16px;
-			line-height: 23px;
-			margin-top: 10px;
-			margin-bottom: 25px;
 			font-weight: 300;
+			margin-bottom: 5px;
+
+
+			@media(min-width: $screen-sm-min) {
+				margin-top: 10px;
+			}
 		}
 	}
 
