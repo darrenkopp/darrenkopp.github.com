@@ -5,11 +5,8 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{CE7B5E8F-8988-442F-ADC9-D4A29DF678D1}"
 	ProjectSection(SolutionItems) = preProject
-		css\bootstrap.css = css\bootstrap.css
 		_layouts\layout.html = _layouts\layout.html
 		_layouts\post.html = _layouts\post.html
-		css\pygments.css = css\pygments.css
-		css\style.css = css\style.css
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_posts", "_posts", "{7E57EC2E-0846-438B-A593-704CB43297E7}"
@@ -70,8 +67,97 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{324A44
 		assets\2014-07-13-console-properties-dark-red-position.png = assets\2014-07-13-console-properties-dark-red-position.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_sass", "_sass", "{FCBC77FE-CA4E-4914-9085-85A1B42A9AF0}"
+	ProjectSection(SolutionItems) = preProject
+		_sass\_bootstrap.scss = _sass\_bootstrap.scss
+		_sass\_pygments.scss = _sass\_pygments.scss
+		_sass\_variables.scss = _sass\_variables.scss
+		css\app.scss = css\app.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bootstrap", "bootstrap", "{BBF4B339-A0D4-405F-9E5D-43FA8DF9D860}"
+	ProjectSection(SolutionItems) = preProject
+		_sass\bootstrap\_alerts.scss = _sass\bootstrap\_alerts.scss
+		_sass\bootstrap\_badges.scss = _sass\bootstrap\_badges.scss
+		_sass\bootstrap\_breadcrumbs.scss = _sass\bootstrap\_breadcrumbs.scss
+		_sass\bootstrap\_button-groups.scss = _sass\bootstrap\_button-groups.scss
+		_sass\bootstrap\_buttons.scss = _sass\bootstrap\_buttons.scss
+		_sass\bootstrap\_carousel.scss = _sass\bootstrap\_carousel.scss
+		_sass\bootstrap\_close.scss = _sass\bootstrap\_close.scss
+		_sass\bootstrap\_code.scss = _sass\bootstrap\_code.scss
+		_sass\bootstrap\_component-animations.scss = _sass\bootstrap\_component-animations.scss
+		_sass\bootstrap\_dropdowns.scss = _sass\bootstrap\_dropdowns.scss
+		_sass\bootstrap\_forms.scss = _sass\bootstrap\_forms.scss
+		_sass\bootstrap\_glyphicons.scss = _sass\bootstrap\_glyphicons.scss
+		_sass\bootstrap\_grid.scss = _sass\bootstrap\_grid.scss
+		_sass\bootstrap\_input-groups.scss = _sass\bootstrap\_input-groups.scss
+		_sass\bootstrap\_jumbotron.scss = _sass\bootstrap\_jumbotron.scss
+		_sass\bootstrap\_labels.scss = _sass\bootstrap\_labels.scss
+		_sass\bootstrap\_list-group.scss = _sass\bootstrap\_list-group.scss
+		_sass\bootstrap\_media.scss = _sass\bootstrap\_media.scss
+		_sass\bootstrap\_mixins.scss = _sass\bootstrap\_mixins.scss
+		_sass\bootstrap\_modals.scss = _sass\bootstrap\_modals.scss
+		_sass\bootstrap\_navbar.scss = _sass\bootstrap\_navbar.scss
+		_sass\bootstrap\_navs.scss = _sass\bootstrap\_navs.scss
+		_sass\bootstrap\_normalize.scss = _sass\bootstrap\_normalize.scss
+		_sass\bootstrap\_pager.scss = _sass\bootstrap\_pager.scss
+		_sass\bootstrap\_pagination.scss = _sass\bootstrap\_pagination.scss
+		_sass\bootstrap\_panels.scss = _sass\bootstrap\_panels.scss
+		_sass\bootstrap\_popovers.scss = _sass\bootstrap\_popovers.scss
+		_sass\bootstrap\_print.scss = _sass\bootstrap\_print.scss
+		_sass\bootstrap\_progress-bars.scss = _sass\bootstrap\_progress-bars.scss
+		_sass\bootstrap\_responsive-embed.scss = _sass\bootstrap\_responsive-embed.scss
+		_sass\bootstrap\_responsive-utilities.scss = _sass\bootstrap\_responsive-utilities.scss
+		_sass\bootstrap\_scaffolding.scss = _sass\bootstrap\_scaffolding.scss
+		_sass\bootstrap\_tables.scss = _sass\bootstrap\_tables.scss
+		_sass\bootstrap\_theme.scss = _sass\bootstrap\_theme.scss
+		_sass\bootstrap\_thumbnails.scss = _sass\bootstrap\_thumbnails.scss
+		_sass\bootstrap\_tooltip.scss = _sass\bootstrap\_tooltip.scss
+		_sass\bootstrap\_type.scss = _sass\bootstrap\_type.scss
+		_sass\bootstrap\_utilities.scss = _sass\bootstrap\_utilities.scss
+		_sass\bootstrap\_variables.scss = _sass\bootstrap\_variables.scss
+		_sass\bootstrap\_wells.scss = _sass\bootstrap\_wells.scss
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mixins", "mixins", "{DDA12E5A-2842-4B2C-95E0-180C0CC2EA58}"
+	ProjectSection(SolutionItems) = preProject
+		_sass\bootstrap\mixins\_alerts.scss = _sass\bootstrap\mixins\_alerts.scss
+		_sass\bootstrap\mixins\_background-variant.scss = _sass\bootstrap\mixins\_background-variant.scss
+		_sass\bootstrap\mixins\_border-radius.scss = _sass\bootstrap\mixins\_border-radius.scss
+		_sass\bootstrap\mixins\_buttons.scss = _sass\bootstrap\mixins\_buttons.scss
+		_sass\bootstrap\mixins\_center-block.scss = _sass\bootstrap\mixins\_center-block.scss
+		_sass\bootstrap\mixins\_clearfix.scss = _sass\bootstrap\mixins\_clearfix.scss
+		_sass\bootstrap\mixins\_forms.scss = _sass\bootstrap\mixins\_forms.scss
+		_sass\bootstrap\mixins\_gradients.scss = _sass\bootstrap\mixins\_gradients.scss
+		_sass\bootstrap\mixins\_grid-framework.scss = _sass\bootstrap\mixins\_grid-framework.scss
+		_sass\bootstrap\mixins\_grid.scss = _sass\bootstrap\mixins\_grid.scss
+		_sass\bootstrap\mixins\_hide-text.scss = _sass\bootstrap\mixins\_hide-text.scss
+		_sass\bootstrap\mixins\_image.scss = _sass\bootstrap\mixins\_image.scss
+		_sass\bootstrap\mixins\_labels.scss = _sass\bootstrap\mixins\_labels.scss
+		_sass\bootstrap\mixins\_list-group.scss = _sass\bootstrap\mixins\_list-group.scss
+		_sass\bootstrap\mixins\_nav-divider.scss = _sass\bootstrap\mixins\_nav-divider.scss
+		_sass\bootstrap\mixins\_nav-vertical-align.scss = _sass\bootstrap\mixins\_nav-vertical-align.scss
+		_sass\bootstrap\mixins\_opacity.scss = _sass\bootstrap\mixins\_opacity.scss
+		_sass\bootstrap\mixins\_pagination.scss = _sass\bootstrap\mixins\_pagination.scss
+		_sass\bootstrap\mixins\_panels.scss = _sass\bootstrap\mixins\_panels.scss
+		_sass\bootstrap\mixins\_progress-bar.scss = _sass\bootstrap\mixins\_progress-bar.scss
+		_sass\bootstrap\mixins\_reset-filter.scss = _sass\bootstrap\mixins\_reset-filter.scss
+		_sass\bootstrap\mixins\_resize.scss = _sass\bootstrap\mixins\_resize.scss
+		_sass\bootstrap\mixins\_responsive-visibility.scss = _sass\bootstrap\mixins\_responsive-visibility.scss
+		_sass\bootstrap\mixins\_size.scss = _sass\bootstrap\mixins\_size.scss
+		_sass\bootstrap\mixins\_tab-focus.scss = _sass\bootstrap\mixins\_tab-focus.scss
+		_sass\bootstrap\mixins\_table-row.scss = _sass\bootstrap\mixins\_table-row.scss
+		_sass\bootstrap\mixins\_text-emphasis.scss = _sass\bootstrap\mixins\_text-emphasis.scss
+		_sass\bootstrap\mixins\_text-overflow.scss = _sass\bootstrap\mixins\_text-overflow.scss
+		_sass\bootstrap\mixins\_vendor-prefixes.scss = _sass\bootstrap\mixins\_vendor-prefixes.scss
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BBF4B339-A0D4-405F-9E5D-43FA8DF9D860} = {FCBC77FE-CA4E-4914-9085-85A1B42A9AF0}
+		{DDA12E5A-2842-4B2C-95E0-180C0CC2EA58} = {BBF4B339-A0D4-405F-9E5D-43FA8DF9D860}
 	EndGlobalSection
 EndGlobal
