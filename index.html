@@ -24,14 +24,16 @@ paginate: 5
 <!-- Pagination links -->
 <footer class="row">
     <hr />
-    <ul class="pager">
-        {% if paginator.page > 1 %}
-        <li class="previous">{% if paginator.previous_page == 1 %} <a href="/">Previous Page</a>{% else %}<a href="/page/{{paginator.previous_page}}/">Previous Page</a>{% endif %}</li>
-        {% endif %}
-        {% if paginator.next_page and paginator.total_pages > 1 %}
-        <li class="next"><a href="/page/{{paginator.next_page}}/">Next Page</a></li>
-        {% endif %}
-    </ul>
+    <div class="col-xs-12">
+        <ul class="pager">
+            {% if paginator.page > 1 %}
+            <li class="previous">{% if paginator.previous_page == 1 %} <a href="/">Previous Page</a>{% else %}<a href="/page/{{paginator.previous_page}}/">Previous Page</a>{% endif %}</li>
+            {% endif %}
+            {% if paginator.next_page and paginator.total_pages > 1 %}
+            <li class="next"><a href="/page/{{paginator.next_page}}/">Next Page</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </footer>
 
 <script type="text/javascript">

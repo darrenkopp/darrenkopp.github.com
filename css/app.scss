@@ -6,6 +6,13 @@ body {
 	background-color: #f9f9f9;
 }
 
+hr {
+  margin-top:    $line-height-computed / 2;
+  margin-bottom: $line-height-computed / 2;
+  border: 0;
+  border-top: 1px solid $hr-border;
+}
+
 .container {
 	background-color: $body-bg;
 	$container-border-color: darken(#f9f9f9, 2%);
@@ -17,6 +24,7 @@ body {
 #river {
 	@media(min-width: $screen-sm-min) {
 		border-left: 1px solid #eee;
+		padding: 0 $grid-gutter-width;
 	}
 
 	.post {
@@ -32,10 +40,13 @@ body {
 		}
 	}
 
-	@media(max-width: $screen-sm-min) {
-		.page-header {
+	.page-header {
+		@media(max-width: $screen-sm-min) {
 			margin: 0;
-			h1,h2,h3,h4,h5,h6 { margin: 0; }
+
+			h1, h2, h3, h4, h5, h6 {
+				margin: 0;
+			}
 		}
 	}
 }
@@ -114,8 +125,6 @@ body {
 		text-decoration: none;
 	}
 }
-
-//.pager { background-color: $body-bg; }
 
 .ellipsis {
 	//width: 250px;

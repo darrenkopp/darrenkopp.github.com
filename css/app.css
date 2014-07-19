@@ -2066,6 +2066,12 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 body {
   background-color: #f9f9f9; }
 
+hr {
+  margin-top: 11px;
+  margin-bottom: 11px;
+  border: 0;
+  border-top: 1px solid #eeeeee; }
+
 .container {
   background-color: #fff;
   border-right: 1px solid #f4f4f4;
@@ -2073,7 +2079,8 @@ body {
 
 @media (min-width: 768px) {
   #river {
-    border-left: 1px solid #eee; } }
+    border-left: 1px solid #eee;
+    padding: 0 30px; } }
 #river .post > header:first-child > ul li {
   font-size: 14px; }
 #river .post .jumbotron {
