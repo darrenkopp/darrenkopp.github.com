@@ -57,9 +57,10 @@ hr {
 
 	.tagline {
 		.thumbnail {
-			display: inline-block;
 			float: left;
-			margin-right: $grid-gutter-width;
+			margin-right: $grid-gutter-width / 2;
+			padding: $thumbnail-padding;
+			margin-bottom: $line-height-computed;
 
 			@media(min-width: $screen-sm-min) {
 				float: none;
