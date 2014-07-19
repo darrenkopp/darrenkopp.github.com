@@ -6,6 +6,11 @@ comments: true
 <article class="post single">
     <header class="page-header">
         <h2>{{ page.title }}</h2>
+        <ul class="list-inline pull-right">
+            <li><a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a></li>
+            <li><div class="g-plus" data-action="share" data-annotation="bubble"></div></li>
+            <li><a href="https://twitter.com/share" class="twitter-share-button" data-related="darrenkopp" data-lang="en" data-count="horizontal">Tweet</a></li>
+        </ul>
         <ul class="list-inline">
             <li><time datetime="{{ page.date }}" class="when text-muted">{{ page.date | date: "%B %d, %Y" }}</time></li>
             <li><a href="/about">{{ site.author }}</a></li>
@@ -25,36 +30,47 @@ comments: true
     {% endif %}
 </article>
 <nav class="row post-pagination">
-    {% if page.previous and page.previous.id != page.id %}
-    <div class="pull-left"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; <span class="ellipsis">{{ page.previous.title }}</span></a></div>
-    {% endif %}
-    {% if page.next and page.next.id != page.id %}
-    <div class="pull-right text-right"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="ellipsis">{{ page.next.title }}</span> &rarr;</a></div>
-    {% endif %}
+    <div class="col-sm-12">
+        <ul class="pager">
+            {% if page.previous and page.previous.id != page.id %}
+            <li class="previous"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}"><span class="ellipsis">{{ page.previous.title }}</span></a></li>
+            {% endif %}
+            {% if page.next and page.next.id != page.id %}
+            <li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="ellipsis">{{ page.next.title }}</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
 </nav>
 <hr />
 <section class="text-center">
-    <ul class="list-inline">
-        <li><a href="http://news.ycombinator.com/submit" class="hn-share-button">Vote on HN</a></li>
-        <li><a href="https://twitter.com/share" class="twitter-share-button" data-related="darrenkopp" data-lang="en" data-count="horizontal">Tweet</a></li>
-        <li><div class="g-plus" data-action="share" data-annotation="bubble"></div></li>
-    </ul>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- post-footer -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-8727993459649286"
+         data-ad-slot="6727917055"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 </section>
+<hr />
 {% if page.comments == true %}
     <section class="comments row">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = '{{ site.comments["disqus"].short_name }}';
-            (function () {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>
-            Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        <div class="col-sm-12">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = '{{ site.comments["disqus"].short_name }}';
+                (function () {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>
+                Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments.</a>
+            </noscript>
+            <a href="http://disqus.com" class="dsq-brlink">blog comments provided by <span class="logo-disqus">Disqus</span></a>
+        </div>
     </section>
 {% endif %}
 

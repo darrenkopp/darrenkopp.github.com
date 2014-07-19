@@ -3,9 +3,9 @@ pretzel:
     engine: liquid
 paginate: 5
 paginate_path: "page/:num"
-pygments: true
+highlighter: rogue
 markdown: redcarpet
-permalink: /posts/:year/:month/:day/:title.html
+permalink: /posts/:year/:month/:day/:title
 author: Darren Kopp
 name: Darren Kopp - On Software
 url: http://darrenkopp.com
@@ -23,3 +23,10 @@ analytics :
   provider : google
   google : 
       tracking_id : 'UA-39031770-1'
+defaults:
+ -
+  scope:
+   path: "" # an empty string here means all files in the project
+   type: "post"
+  values:
+   layout: "post"

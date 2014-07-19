@@ -17,14 +17,11 @@
     <link rel="icon" href="/img/favicon64.png" sizes="64x64" type="image/png">
     <link rel="icon" href="/img/favicon128.png" sizes="128x128" type="image/png">
     <link rel="icon" href="/img/favicon256.png" sizes="256x256" type="image/png">
-    
+
     <link rel="me" type="text/html" href="https://plus.google.com/115676611646777703234?rel=me" />
     <link rel="me" type="text/html" href="https://twitter.com/{{ site.twitter }}" />
-    
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/pygments.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+    <link href="/css/app.css" rel="stylesheet">
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -47,39 +44,34 @@
 </head>
 <body>
     <div class="container">
-        <header id="sidebar" class="col-md-3">
-            <a href="/" class="thumbnail">
-                <figure class="logo">
-                    <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" width="80" height="80" />
-                </figure>
-            </a>
-            <h1>On Software</h1>
-            <h2>Darren Kopp</h2>
-            <h3 class="text-muted">Navigating through software, line by line</h3>
-            <nav>
-                <ul class="menu list-unstyled">
-                    <li><a href="/about">About</a></li>
+        <div class="row">
+            <header id="sidebar" class="col-lg-2 col-md-3 col-sm-3">
+                <section class="tagline">
+                    <a href="/" class="thumbnail">
+                        <figure class="logo">
+                            <img class="img-rounded" src="{{ site.gravatar_url }}" alt="{{ site.author }}" width="80" height="80" />
+                        </figure>
+                    </a>
+                    <h1>Darren Kopp</h1>
+                    <h2 class="text-muted">Navigating through software, line by line</h2>
+                    <nav class="hidden-xs">
+                        <ul class="menu list-unstyled">
+                            <li><a href="/about">About</a></li>
+                        </ul>
+                    </nav>
+                </section>
+
+                <ul class="social list-unstyled hidden-xs">
+                    <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
+                    <li><a href="https://github.com/{{ site.github_url }}">GitHub</a></li>
+                    <li><a href="{{ site.rss_url }}">rss</a></li>
+                    <li><a href="mailto:{{ site.email }}?subject=Hello">Chat</a></li>
                 </ul>
-            </nav>
-            <ul class="social list-unstyled">
-                <li><a href="https://twitter.com/{{ site.twitter }}">@{{ site.twitter }}</a></li>
-                <li><a href="https://github.com/{{ site.github_url }}">GitHub</a></li>
-                <li><a href="{{ site.rss_url }}">rss</a></li>
-                <li><a href="mailto:{{ site.email }}?subject=Hello">Chat</a></li>
-            </ul>
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- minimal -->
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:234px;height:60px"
-                 data-ad-client="ca-pub-8727993459649286"
-                 data-ad-slot="8595576657"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </header>
-        <section id="river" class="col-md-9">
-            {{content}}
-        </section>
+            </header>
+            <section id="river" class="col-lg-10 col-md-9 col-sm-9">
+                {{content}}
+            </section>
+        </div>
     </div>
 </body>
 </html>

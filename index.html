@@ -4,7 +4,8 @@ title : Darren Kopp - On Software
 paginate: 5
 ---
 {% for post in paginator.posts %}
-	<article class="post">
+<div class="row">
+    <article class="post col-xs-12">
         <header class="page-header">
             <h2><a href="{{ post.url | remove: '.html' }}">{{ post.title }}</a></h2>
             <ul class="list-inline">
@@ -17,18 +18,21 @@ paginate: 5
             {{ post.content }}
         </section>
     </article>
+</div>
 {% endfor %}
 
 <!-- Pagination links -->
-<hr />
-<ul class="pager">
-    {% if paginator.page > 1 %}
+<footer class="row">
+    <hr />
+    <ul class="pager">
+        {% if paginator.page > 1 %}
         <li class="previous">{% if paginator.previous_page == 1 %} <a href="/">Previous Page</a>{% else %}<a href="/page/{{paginator.previous_page}}/">Previous Page</a>{% endif %}</li>
-    {% endif %}
-    {% if paginator.next_page and paginator.total_pages > 1 %}
+        {% endif %}
+        {% if paginator.next_page and paginator.total_pages > 1 %}
         <li class="next"><a href="/page/{{paginator.next_page}}/">Next Page</a></li>
-    {% endif %}
-</ul>
+        {% endif %}
+    </ul>
+</footer>
 
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
