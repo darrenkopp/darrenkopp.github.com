@@ -2108,22 +2108,19 @@ hr {
         float: none;
         margin-right: 0; } }
   #sidebar .tagline h1, #sidebar .tagline h2 {
-    margin: 0; }
+    margin-top: 0; }
   #sidebar .tagline h1 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 10px; }
-    @media (min-width: 768px) {
+    font-size: 25px;
+    font-weight: 700; }
+    @media (max-width: 767px) {
       #sidebar .tagline h1 {
-        font-size: 25px;
-        margin-bottom: 22px; } }
+        margin-bottom: 10px; } }
   #sidebar .tagline h2 {
     font-size: 16px;
-    font-weight: 300;
-    margin-bottom: 5px; }
-    @media (min-width: 768px) {
+    font-weight: 300; }
+    @media (max-width: 767px) {
       #sidebar .tagline h2 {
-        margin-top: 10px; } }
+        margin-bottom: 0px; } }
   #sidebar .img-rounded {
     border-radius: 4px; }
   #sidebar ul.social li {
