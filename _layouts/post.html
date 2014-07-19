@@ -33,10 +33,10 @@ comments: true
     <div class="col-sm-12">
         <ul class="pager">
             {% if page.previous and page.previous.id != page.id %}
-            <li class="previous"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}"><span class="ellipsis">{{ page.previous.title }}</span></a></li>
+            <li class="previous"><a href="{{ page.previous.url }}" title="{{ page.previous.title }}"><span class="ellipsis hidden-xs hidden-sm">{{ page.previous.title }}</span><span class="visible-xs visible-sm">Previous</span></a></li>
             {% endif %}
             {% if page.next and page.next.id != page.id %}
-            <li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="ellipsis">{{ page.next.title }}</span></a></li>
+            <li class="next"><a href="{{ page.next.url }}" title="{{ page.next.title }}"><span class="ellipsis hidden-xs hidden-sm">{{ page.next.title }}</span><span class="visible-xs visible-sm">Next</span></a></li>
             {% endif %}
         </ul>
     </div>

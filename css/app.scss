@@ -50,7 +50,7 @@ hr {
 		padding-top: ($line-height-computed * 2) + 5px;
 	}
 
-	@media(max-width: $screen-sm-min - 1) {
+	@media(max-width: $screen-xs-max) {
 		background-color: $site-bg;
 		border-bottom: 1px solid $site-border;
 	}
@@ -76,7 +76,7 @@ hr {
 			font-size: 25px;
 			font-weight: 700;
 
-			@media(max-width: $screen-sm-min - 1) {
+			@media(max-width: $screen-xs-max) {
 				margin-bottom: 10px;
 			}
 		}
@@ -85,7 +85,7 @@ hr {
 			font-size: 16px;
 			font-weight: 300;
 
-			@media(max-width: $screen-sm-min - 1) {
+			@media(max-width: $screen-xs-max) {
 				margin-bottom: 0px;
 			}
 		}
@@ -133,7 +133,7 @@ hr {
 
 .ellipsis {
 	//width: 250px;
-	max-width: 250px;
+	max`-width: 250px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
