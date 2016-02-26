@@ -3,8 +3,6 @@ pretzel:
     engine: liquid
 paginate: 5
 paginate_path: "page/:num"
-highlighter: rogue
-markdown: kramdown
 permalink: /posts/:year/:month/:day/:title
 author: Darren Kopp
 name: Darren Kopp - On Software
