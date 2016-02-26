@@ -1552,7 +1552,7 @@ a.label:hover, a.label:focus {
   .hidden-print {
     display: none !important; } }
 
-.highlight code, .highlight pre, .highlighter-rouge code, .highlighter-rouge pre {
+pre {
   color: #fdce93;
   background-color: #3f3f3f; }
 .highlight .cs, .highlight .gh, .highlight .gp, .highlight .gs, .highlight .gu, .highlight .kn, .highlight .ne {
