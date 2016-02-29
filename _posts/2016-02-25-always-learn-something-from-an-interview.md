@@ -13,7 +13,7 @@
 
 Let's make one thing clear: **being a candidate in an interview is hard**.
 Over your career you will likely participate in many interviews as a candidate, and I can assure you that you likely won't pass every single one.
-You aren't alone here, I myself am no [stranger to failed interviews](/posts/2013/04/19/Post-mortem-of-my-failed-interview/).
+You aren't alone here, I myself am no [stranger to failed interviews](/posts/2013/04/19/Post-mortem-of-my-failed-interview).
 You can, however, make sure that you are getting something out of every single interview: a new job, exposure to a new problem,
 a new way to solve a problem, or a better understanding of a problem.
 
