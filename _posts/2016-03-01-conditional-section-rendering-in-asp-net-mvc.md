@@ -36,7 +36,7 @@ So, the work around to this is simple: we render the section to nothing.
 }
 else
 {
-    RenderSection("ProductionOnlyScripts", false).WriteTo(TextWriter.Null);
+    RenderSection("ProductionOnlyScripts", false)?.WriteTo(TextWriter.Null);
 }
 ```
 
