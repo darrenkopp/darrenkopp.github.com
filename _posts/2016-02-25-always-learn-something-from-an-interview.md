@@ -49,9 +49,9 @@ A lot of the time, you won't get a response for various reasons like company pol
 Any feedback you are able to get, however, can be very important.
 
 Every interview I conduct I block off an hour and a half which is broken into three parts:
-* The first 10 - 15 minutes I go over the job description and get to know a little more about the candidate
-* The next 45 minutes is dedicated to the candidate answering technical questions
-* The remaining 30 minutes is open question time for the candidate
+- The first 10 - 15 minutes I go over the job description and get to know a little more about the candidate
+- The next 45 minutes is dedicated to the candidate answering technical questions
+- The remaining 30 minutes is open question time for the candidate
 
 The vast majority of the time candidates spend about 10 - 15 minutes asking the usual questions like what kind of source control we use, how we do deployments, etc.
 The other day, howerver, one candidate took full advantage of this time, which I always explicitly say is open Q&A.
