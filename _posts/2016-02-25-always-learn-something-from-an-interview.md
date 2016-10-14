@@ -49,6 +49,7 @@ A lot of the time, you won't get a response for various reasons like company pol
 Any feedback you are able to get, however, can be very important.
 
 Every interview I conduct I block off an hour and a half which is broken into three parts:
+
 - The first 10 - 15 minutes I go over the job description and get to know a little more about the candidate
 - The next 45 minutes is dedicated to the candidate answering technical questions
 - The remaining 30 minutes is open question time for the candidate
