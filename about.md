@@ -3,7 +3,7 @@ layout: layout
 title: About Me
 ---
 
-<article class="post single">
+<div class="post single">
     <header class="page-header">
         <h2>{{ page.title }}</h2>
     </header>
@@ -18,4 +18,4 @@ title: About Me
 	Interested in my work history? 
 	Here's my <a href="http://stackoverflow.com/users/story/77">online resume</a>
     </p>
-</article>
+</div>
