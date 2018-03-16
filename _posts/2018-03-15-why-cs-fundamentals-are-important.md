@@ -4,6 +4,7 @@ title: "The importance of computer science fundamentals"
 date: 2018-03-15 22:09:00
 categories: software
 tags: career interviews
+comments: true
 ---
 
 Rob Conery has released a new book called [The Imposter's Handbook](https://bigmachine.io/products/the-imposters-handbook) for those in the software industry who don't have a strong background in computer science fundamentals. I haven't read the book so I can't comment on what it covers, but the concept has me reflecting on my own similar experience.
