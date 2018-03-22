@@ -9,7 +9,7 @@ comments: true
 
 Rob Conery has released a new book called [The Imposter's Handbook](https://bigmachine.io/products/the-imposters-handbook) for those in the software industry who don't have a strong background in computer science fundamentals. I haven't read the book so I can't comment on what it covers, but the concept has me reflecting on my own similar experience.
 
-While I did attend some university and got about half way through a computer science degree before I dropped out. At the time, I didn't think I had missed out on anything because I had already taught myself everything I had encountered in school up until that point; I was always a semester ahead of my course work.
+While I did attend some university, I only finished about half of my computer science degree before I dropped out. At the time, I didn't think I had missed out on anything because I had already taught myself everything I had encountered in school up until that point; I was always a semester ahead of my course work.
 
 I realize now that I was pretty close to the promised land of computer science because I had just hit Big-O notation though at the time I thought it was _completely pointless_. At the time, I was somewhat correct, but looking back now I realize how wrong I was.
 
