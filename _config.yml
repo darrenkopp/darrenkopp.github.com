@@ -6,7 +6,7 @@ paginate_path: "page/:num"
 permalink: /posts/:year/:month/:day/:title
 author: Darren Kopp
 name: Darren Kopp - On Software
-url: http://darrenkopp.com
+url: https://darrenkopp.com
 description: Musings on software, technology, and life by Darren Kopp
 twitter: darrenkopp
 github_url: darrenkopp
