@@ -12,7 +12,7 @@ layout: nil
     <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
     <lastBuildDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>
     <image>
-      <url>http://darrenkopp.com/img/favicon256.png</url>
+      <url>https://darrenkopp.com/img/favicon256.png</url>
       <title>{{ site.name }}</title>
       <link>{{ site.url }}</link>
       <width>256</width>
