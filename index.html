@@ -2,6 +2,7 @@
 layout : layout
 title : Darren Kopp - On Software
 paginate: 5
+use_disqus: false
 ---
 {% for post in paginator.posts %}
 <div class="row">
@@ -11,7 +12,9 @@ paginate: 5
             <ul class="list-inline">
                 <li><time datetime="{{ post.date }}" class="when text-muted">{{ post.date | date: "%B %d, %Y" }}</time></li>
                 <li><a href="/about">{{ site.author }}</a></li>
+                {% if page.use_disqus == true %}
                 <li><span><a href="{{ post.url | remove: '.html' }}#disqus_thread">&nbsp;&nbsp;Comments</a></span></li>
+                {% endif %}
             </ul>
         </header>
         <section>
@@ -36,4 +39,6 @@ paginate: 5
     </div>
 </footer>
 
+{% if page.use_disqus == true %}
 <script id="dsq-count-scr" src="//darrenkoppblog.disqus.com/count.js" async></script>
+{% endif %}
