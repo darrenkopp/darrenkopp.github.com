@@ -79,7 +79,12 @@ what killed my application (but I can't say one way or another).
 
 That interview, however, is the only interview that actually bothers me to this day. The question, 
 which I've heard is a Facebook favorite, was "convert a decimal number to base negative 2". 
-This question, which is possible/doable in 40 minutes and more about the problem solving process than anything, is the dumbest fucking question I have ever had and I don't care what anybody else thinks. Every other question I've had I've never had problems with, because, like I've shown in this post, most everything you'll actually run into at some point. And yes converting numbers to other things (roman numerals, etc) is a valid thing, but fuck that question and just waiting for you to eventually arrive at the little trick to make it work.
+This question, which is possible/doable in 40 minutes and more about the problem solving process than anything,
+is the dumbest fucking question I have ever had and I don't care what anybody else thinks. Every other
+question I've had I've never had problems with because, like I've shown in this post, most everything
+you'll actually run into at some point. And yes converting numbers to other things (roman numerals, etc)
+is a valid thing, but fuck that question and just waiting for you to eventually arrive at the
+little trick to make it work.
 
 Because of my schedule, the interviews were stacked back-to-back, where they normally would not be
 and I wouldn't have actually ended up having the interview with Joel, which was so awkward because he
