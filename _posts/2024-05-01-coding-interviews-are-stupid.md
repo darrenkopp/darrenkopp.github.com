@@ -26,8 +26,8 @@ know them already and just forgot because they haven't used them recently. Math 
 subjects in school but if you asked me right now to take a derivative of something I wouldn't be able to.
 
 For some reason we think that someone needs to be able to whip out the solution to any random
-problem that is space and time optimal within 40 minutes. Ok, that's not necessarily fair. More
-hyperbole, I know. I'm well aware that it's often said that what's more important is how you solve
+problem that is space and time optimal within 40 minutes. Ok, that's not necessarily fair (more
+hyperbole, I know). I'm well aware that it's often said that what's more important is how you solve
 the problem, not that you solve the problem, but in practice human biases will work against you
 if you don't get close to it working.
 
