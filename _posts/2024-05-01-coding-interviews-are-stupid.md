@@ -65,8 +65,7 @@ people as well, which may well be the actual reason we are rightfully stuck with
 hiring practices.
 
 For now, I'll just keep practicing for interviews until I successfully trick someone into thinking
-that I know how to code and then secretely become one of the best employees they have ever had. It's
-dishonest, I know, but nobody has complained yet.
+that I know how to code and then secretely become one of the best employees they have ever had.
 
 ---
 
