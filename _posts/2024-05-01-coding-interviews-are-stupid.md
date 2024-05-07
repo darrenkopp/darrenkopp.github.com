@@ -98,7 +98,7 @@ question I've received that I would actually categorize as "gimicky." RIP StackO
 
 [^1]: 5 minutes on introductions, 40 minutes on the question, 10-15 minutes for questions.
 
-[1]: /_posts/2013-04-19-Post-mortem-of-my-failed-interview.html
+[1]: /posts/2013/04/19/Post-mortem-of-my-failed-interview
 [2]: https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850
-[3]: /_posts/2013-05-28-Always-finish.html
-[4]: /_posts/2016-02-25-always-learn-something-from-an-interview.md
+[3]: /posts/2013/05/28/Always-finish
+[4]: /posts/2016/02/25/always-learn-something-from-an-interview
